@@ -5,7 +5,9 @@
 </head>
 <body>
     <?php
-        // PHP code goes here
+        // get from auth.php the $pdo variable and get schema project info
+        require_once('auth.php');
+        
     ?>
     Hello World!
 </body>
