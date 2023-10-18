@@ -24,7 +24,7 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 ?>
-'''
+```
 > With the correct values for the connection to the database
 
 ### Live server
