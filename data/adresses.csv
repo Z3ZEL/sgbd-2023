@@ -1,0 +1,26 @@
+numero_adresse,numero_habitation,nom_voie,code_postal,ville,pays
+1,5,Rue de la Pompe,75016,Paris,France
+2,112,Boulevard des Belges,69006,Lyon,France
+3,74,Rue de la Barrière Saint-Marc,44000,Nantes,France
+4,28,Avenue Honoré Serres,31000,Toulouse,France
+5,66,Cours de la Marne,33000,Bordeaux,France
+6,12,Rue Jean de la Fontaine,75016,Paris,France
+7,119,Boulevard Montmorency,69006,Lyon,France
+8,81,Rue Paul Bellamy,44000,Nantes,France
+9,35,Avenue de la Gloire,31000,Toulouse,France
+10,71,Rue Lucien Faure,33000,Bordeaux,France
+11,21,Rue Raffet,75016,Paris,France
+12,128,Rue de Créqui,69006,Lyon,France
+13,89,Rue des Hauts Pavés,44000,Nantes,France
+14,42,Chemin des Izards,31000,Toulouse,France
+15,78,Rue Fondaudege,33000,Bordeaux,France
+16,45,Rue de la Pompe,75016,France
+17,12,Quai du Rhône,69002,France
+18,78,Boulevard de la Loire,44000,France
+19,22,Allée des Pyrénées,31000,France
+20,31,Cours du Médoc,33000,France
+21,65,Rue du Bac,75007,France
+22,24,Place Bellecour,69002,France
+23,49,Avenue de Bretagne,44000,France
+24,55,Rue d'Alsace,31000,France
+25,88,Place de la Bourse,33000,France
