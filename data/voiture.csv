@@ -1,0 +1,12 @@
+matricule_voiture,puissance_fiscale_voiture,cylindree_voiture,couleur_voiture,annee_circulation_voiture,numero_modele,numero_client
+AA-123-ZZ,10,1800,Gris,2020,1,1
+BB-456-YY,7,1200,Rouge,2021,2,2
+CC-789-XX,14,2200,Noir,2019,3,3
+DD-012-AA,11,2000,Bleu,2022,4,4
+EE-345-BB,14,2500,Blanc,2022,5,5
+FF-678-CC,7,1200,Jaune,2021,2,6
+GG-901-DD,8,1400,Vert,2020,6,7
+HH-234-EE,10,1800,Gris,2021,1,8
+II-567-FF,14,2200,Noir,2019,3,9
+JJ-890-GG,11,2000,Bleu,2022,4,10
+KK-123-HH,14,2500,Blanc,2021,5,10

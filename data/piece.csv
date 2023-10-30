@@ -1,0 +1,21 @@
+numero_serie_piece,type_piece,prix_piece,marque_piece
+1,Pneu,100.50,Michelin
+2,Huile moteur,40.75,Castrol
+3,Filtre à air,15.60,Bosch
+4,Plaquette de frein,50.30,Brembo
+5,Kit de contrôle technique,200.80,AutoCheck
+6,Batterie,120.50,Exide
+7,Peinture carrosserie,75.20,DuPont
+8,Gaz de climatisation,55.70,Valeo
+9,Courroie de distribution,90.10,Continental
+10,Liquide de refroidissement,20.45,Mobil
+11,Bougie d'allumage,5.60,NGK
+12,Filtre à huile,10.30,MANN
+13,Amortisseur,140.10,Monroe
+14,Phare,110.80,Philips
+15,Rétroviseur,85.90,AutoGlass
+16,Balai essuie-glace,20.40,Bosch
+17,Alternateur,180.40,Denso
+18,Disque de frein,90.00,Brembo
+19,Radiateur,130.70,Nissens
+20,Injecteur,160.50,Siemens
