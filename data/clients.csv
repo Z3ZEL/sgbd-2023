@@ -1,4 +1,4 @@
-numero_client,numero_adresse,nom,prénom,mail,téléphone
+numero_client,numero_adresse,nom_client,prénom_client,mail_client,telephone_client
 1,6,Dupont,Chloé,chloe.dupont@email.fr,0612345678
 2,7,Kim,Mathieu,mathieu.kim@email.fr,0623456789
 3,8,Santos,Alice,alice.santos@email.fr,0634567890

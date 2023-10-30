@@ -1,11 +1,11 @@
-action_numero,action_nom
-A001,Changement des pneumatiques
-A002,Vidange d'huile
-A003,Remplacement du filtre à air
-A004,Remplacement des plaquettes de frein
-A005,Contrôle technique
-A006,Changement de batterie
-A007,Réparation de carrosserie
-A008,Recharge de climatisation
-A009,Remplacement de courroie de distribution
-A010,Contrôle et recharge de liquide de refroidissement
+numero_action,nom_action,duree_estimee_action,tarif_action
+1,Changement des pneumatiques,1,70
+2,Vidange d'huile,0.5,50
+3,Remplacement du filtre à air,0.5,60
+4,Remplacement des plaquettes de frein,2,75
+5,Contrôle technique,1.5,90
+6,Changement de batterie,1,65
+7,Réparation de carrosserie,3,85
+8,Recharge de climatisation,1,80
+9,Remplacement de courroie de distribution,4,100
+10,Contrôle et recharge de liquide de refroidissement,1,60

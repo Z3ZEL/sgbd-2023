@@ -1,4 +1,4 @@
-modele_numero,modele_type,modele_marque,modele_version,modele_année
+numero_modele,type_modele,marque_modele,version_modele,annee_modele
 1,Berline,Peugeot,508 GT,2019
 2,Citadine,Renault,Clio V,2020
 3,SUV,Mercedes,GLC,2018
