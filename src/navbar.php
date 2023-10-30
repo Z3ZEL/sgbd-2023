@@ -1,19 +1,22 @@
+<head>    <link rel="stylesheet" href="styles.css">
+</head>
+
 <div class="navbar">
     <!-- Menu déroulant "Parcourir" à gauche -->
     <div class="dropdown">
         <button class="dropbtn">Parcourir</button>
         <div class="dropdown-content">
-            <a href="actions.php">Actions</a>
-            <a href="adresses.php">Adresses</a>
-            <a href="clients.php">Clients</a>
-            <a href="devis.php">Devis</a>
-            <a href="employes.php">Employés</a>
-            <a href="factures.php">Factures</a>
-            <a href="garages.php">Garages</a>
-            <a href="interventions.php">Interventions</a>
-            <a href="modeles_voitures.php">Modèles de voitures</a>
-            <a href="pieces.php">Pièces</a>
-            <a href="voitures.php">Voitures</a>
+            <a href="table_view.php?table=action">Actions</a>
+            <a href="table_view.php?table=adresse">Adresses</a>
+            <a href="table_view.php?table=client">Clients</a>
+            <a href="table_view.php?table=devis">Devis</a>
+            <a href="table_view.php?table=employe">Employés</a>
+            <a href="table_view.php?table=facture">Factures</a>
+            <a href="table_view.php?table=garage">Garages</a>
+            <a href="table_view.php?table=intervention">Interventions</a>
+            <a href="table_view.php?table=modele_voiture">Modèles de voitures</a>
+            <a href="table_view.php?table=piece">Pièces</a>
+            <a href="table_view.php?table=voiture">Voitures</a>
         </div>
     </div>
 
