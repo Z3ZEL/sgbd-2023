@@ -323,4 +323,4 @@ TSWLatexianTemp*
 
 .vscode
  ~*
- .pdf
+*.pdf

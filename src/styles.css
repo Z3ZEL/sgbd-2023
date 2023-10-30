@@ -1,0 +1,148 @@
+/* styles.css */
+
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Style pour la barre de menu */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background-color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles uniformes pour tous les boutons/links dans la navbar */
+.navbar a, .navbar .dropbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    height: 40px;
+    font-size: 16px;
+}
+
+.navbar a:hover, .navbar .dropbtn:hover {
+    color: #ddd;
+    transform: scale(1.05);
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    transform: translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-top: 3px solid #666;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+
+/* Style pour le container de recherche */
+.search-container {
+    padding: 30px;
+    background-color: #fff;
+    margin: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Ombre plus douce et plus grande */
+}
+
+.search-container h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #ddd; /* Bordure plus épaisse pour la mise en évidence */
+    padding-bottom: 10px;
+    margin-bottom: 20px; /* Espacement ajouté pour une meilleure aération */
+}
+
+.search-container fieldset {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.search-container legend {
+    color: #444;
+    font-weight: 600; /* Poids de police augmenté pour la mise en évidence */
+}
+
+.search-container label {
+    margin-right: 25px;
+    color: #555;
+}
+
+.search-container input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.search-container input[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600; /* Texte plus gras pour une meilleure visibilité */
+}
+
+.search-container input[type="submit"]:hover {
+    background-color: #555;
+}
+
+.accueil-image-container {
+    display: flex;
+    justify-content: center; /* Centrer l'image horizontalement */
+    align-items: center;     /* Centrer l'image verticalement */
+    height: calc(100vh - 60px); /* Hauteur de l'écran moins la hauteur de la navbar (à ajuster selon votre design) */
+    overflow: hidden; /* Pour éviter tout débordement d'image */
+}
+
+.accueil-image {
+    max-width: 100%; /* Pour s'assurer que l'image ne dépasse pas la largeur de l'écran */
+    height: auto; /* Pour maintenir l'aspect ratio de l'image */
+}
