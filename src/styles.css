@@ -4,6 +4,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
+    padding-top: 60px;
     padding: 0;
     background-color: #f7f7f7;
     font-size: 16px;
@@ -18,7 +19,13 @@ body {
     padding: 10px 30px;
     background-color: #333;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
+
 
 /* Styles uniformes pour tous les boutons/links dans la navbar */
 .navbar a, .navbar .dropbtn {
@@ -27,7 +34,7 @@ body {
     justify-content: center;
     color: white;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 8px 100px;
     background-color: transparent;
     border: none;
     cursor: pointer;

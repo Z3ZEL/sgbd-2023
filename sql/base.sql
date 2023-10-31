@@ -94,12 +94,19 @@ CREATE TABLE composition
 --   Table : piece                                        
 -- ============================================================
 
+CREATE TABLE type_piece
+(
+    numero_type_piece               SERIAL                  NOT NULL,
+    nom_type_piece                        VARCHAR(40)                     ,
+    CONSTRAINT pk_type_piece PRIMARY KEY (numero_type_piece)
+);
+
 CREATE TABLE piece
 (
     numero_serie_piece              SERIAL                   NOT NULL,
-    type_piece                      VARCHAR(40)                      ,
     prix_piece                      FLOAT                            ,
     marque_piece                    VARCHAR(20)                      ,
+    numero_type_piece               INTEGER                          ,
     CONSTRAINT pk_piece PRIMARY KEY (numero_serie_piece)
 );
 
@@ -281,5 +288,9 @@ ALTER TABLE employe
 ADD CONSTRAINT fk_employe_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN);
 ALTER TABLE employe
 ADD CONSTRAINT fk_employe_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse);
+
+--Piece
+ALTER TABLE piece
+ADD CONSTRAINT fk_numero_type_piece FOREIGN KEY (numero_type_piece) REFERENCES type_piece(numero_type_piece);
 
 -- ============================================================
