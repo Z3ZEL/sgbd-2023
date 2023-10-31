@@ -234,64 +234,64 @@ CREATE TABLE employe
 
 -- Client
 ALTER TABLE client
-ADD CONSTRAINT fk_client_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse);
+ADD CONSTRAINT fk_client_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
 
 -- Voiture
 ALTER TABLE voiture
-ADD CONSTRAINT fk_voiture_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele);
+ADD CONSTRAINT fk_voiture_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele) ON DELETE CASCADE;
 ALTER TABLE voiture
-ADD CONSTRAINT fk_voiture_numero_client FOREIGN KEY (numero_client) REFERENCES client(numero_client);
+ADD CONSTRAINT fk_voiture_numero_client FOREIGN KEY (numero_client) REFERENCES client(numero_client) ON DELETE CASCADE;
 
 -- Composition
 ALTER TABLE composition
-ADD CONSTRAINT fk_composition_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele);
+ADD CONSTRAINT fk_composition_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele) ON DELETE CASCADE;
 ALTER TABLE composition
-ADD CONSTRAINT fk_composition_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece);
+ADD CONSTRAINT fk_composition_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece) ON DELETE CASCADE;
 
 -- Requerir
 ALTER TABLE requerir
-ADD CONSTRAINT fk_requerir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action);
+ADD CONSTRAINT fk_requerir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
 ALTER TABLE requerir
-ADD CONSTRAINT fk_requerir_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece);
+ADD CONSTRAINT fk_requerir_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece) ON DELETE CASCADE;
 
 -- Contenir
 ALTER TABLE contenir
-ADD CONSTRAINT fk_contenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action);
+ADD CONSTRAINT fk_contenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
 ALTER TABLE contenir
-ADD CONSTRAINT fk_contenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention);
+ADD CONSTRAINT fk_contenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
 
 -- Survenir
 ALTER TABLE survenir
-ADD CONSTRAINT fk_survenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action);
+ADD CONSTRAINT fk_survenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
 ALTER TABLE survenir
-ADD CONSTRAINT fk_survenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention);
+ADD CONSTRAINT fk_survenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
 
 -- Facture
 ALTER TABLE facture
-ADD CONSTRAINT fk_facture_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention);
+ADD CONSTRAINT fk_facture_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
 
 -- Devis
 ALTER TABLE devis
-ADD CONSTRAINT fk_devis_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention);
+ADD CONSTRAINT fk_devis_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
 
 -- Intervention
 ALTER TABLE intervention
-ADD CONSTRAINT fk_intervention_voiture FOREIGN KEY (matricule_voiture) REFERENCES voiture(matricule_voiture);
+ADD CONSTRAINT fk_intervention_voiture FOREIGN KEY (matricule_voiture) REFERENCES voiture(matricule_voiture) ON DELETE CASCADE;
 ALTER TABLE intervention
-ADD CONSTRAINT fk_intervention_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN);
+ADD CONSTRAINT fk_intervention_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN) ON DELETE CASCADE;
 
 -- Garage
 ALTER TABLE garage
-ADD CONSTRAINT fk_garage_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse);
+ADD CONSTRAINT fk_garage_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
 
 -- Employe
 ALTER TABLE employe
-ADD CONSTRAINT fk_employe_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN);
+ADD CONSTRAINT fk_employe_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN) ON DELETE CASCADE;
 ALTER TABLE employe
-ADD CONSTRAINT fk_employe_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse);
+ADD CONSTRAINT fk_employe_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
 
 --Piece
 ALTER TABLE piece
-ADD CONSTRAINT fk_numero_type_piece FOREIGN KEY (numero_type_piece) REFERENCES type_piece(numero_type_piece);
+ADD CONSTRAINT fk_numero_type_piece FOREIGN KEY (numero_type_piece) REFERENCES type_piece(numero_type_piece) ON DELETE CASCADE;
 
 -- ============================================================
