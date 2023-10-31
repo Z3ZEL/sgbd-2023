@@ -1,5 +1,5 @@
 -- Truncate tables and restart identity
-TRUNCATE employe, garage, intervention, devis, facture, survenir, contenir, action, requerir, piece, composition, modele_voiture, voiture, client, adresse RESTART IDENTITY CASCADE;
+TRUNCATE employe, garage, intervention, devis, facture, survenir, contenir, action, requerir, type_piece, piece, composition, modele_voiture, voiture, client, adresse RESTART IDENTITY CASCADE;
 
 -- Import des données pour la table adresse
 \COPY adresse(numero_adresse, numero_habitation, nom_voie, code_postal, pays) FROM '../data/adresse.csv' DELIMITER ',' CSV HEADER;

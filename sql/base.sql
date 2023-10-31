@@ -4,21 +4,22 @@
 --   Date de creation :  30/10/2023                       
 -- ============================================================
 
-DROP TABLE adresse;
-DROP TABLE client;
-DROP TABLE voiture;
-DROP TABLE modele_voiture;
-DROP TABLE composition;
-DROP TABLE piece;
-DROP TABLE requerir;
-DROP TABLE action;
-DROP TABLE contenir;
-DROP TABLE survenir;
-DROP TABLE facture;
-DROP TABLE devis;
-DROP TABLE intervention;
-DROP TABLE garage;
-DROP TABLE employe;
+DROP TABLE adresse CASCADE ;
+DROP TABLE client CASCADE ;
+DROP TABLE voiture CASCADE ;
+DROP TABLE modele_voiture CASCADE ;
+DROP TABLE composition CASCADE ;
+DROP TABLE type_piece CASCADE ;
+DROP TABLE piece CASCADE ;
+DROP TABLE requerir CASCADE ;
+DROP TABLE action CASCADE ;
+DROP TABLE contenir CASCADE ;
+DROP TABLE survenir CASCADE ;
+DROP TABLE facture CASCADE ;
+DROP TABLE devis CASCADE ;
+DROP TABLE intervention CASCADE ;
+DROP TABLE garage CASCADE ;
+DROP TABLE employe CASCADE ;
 
 -- ============================================================
 --   Table : ADRESSE                                          

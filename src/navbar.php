@@ -1,4 +1,6 @@
-<head>    <link rel="stylesheet" href="styles.css">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />    
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <div class="navbar">
@@ -30,7 +32,4 @@
 
     <!-- Bouton "Recherche" à droite du bouton "Accueil" -->
     <a href="recherche.php" class="central-button">Recherche</a>
-
-    <!-- Bouton "Ajout" tout à droite -->
-    <a href="ajout.php" class="right-button">Ajout</a>
 </div>
