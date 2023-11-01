@@ -4,7 +4,7 @@ include 'auth.php';
 $tableName = $_POST['table'];
 
 try {
-    $sql = "TRUNCATE TABLE $tableName CASCADE";
+    $sql = "TRUNCATE TABLE $tableName";
     $pdo->exec($sql);
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());

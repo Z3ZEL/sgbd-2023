@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />    
     <link rel="stylesheet" href="styles.css">
@@ -33,3 +35,4 @@
     <!-- Bouton "Recherche" à droite du bouton "Accueil" -->
     <a href="recherche.php" class="central-button">Recherche</a>
 </div>
+</html>
