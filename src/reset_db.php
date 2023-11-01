@@ -3,13 +3,14 @@ include 'auth.php';
 
 $tableName = $_POST['table'];
 
-// Mettre à jour la commande pour exécuter le fichier SQL
-$command = "psql -U $user -d $dbname -a -c \"\\i ../sql/donnees.sql\"";
+// Execute sql script '../sql/reset_db.sql'
+$command = "cd .. && psql postgresql://$user:$password@$host:5432/$dbname -1 -f sql/donnees.sql";
+$output = [];
+$status = 0;
 
-// Exécuter la commande shell
-putenv("PGPASSWORD=$password");
 exec($command, $output, $status);
-putenv("PGPASSWORD=");
+
+
 
 if($status === 0) {
     header("Location: table_view.php?table=$tableName");
