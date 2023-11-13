@@ -29,61 +29,14 @@ Ce document présente le modèle relationnel mis en place lors de la réalisatio
 \fontsize{9pt}{10.8pt}\selectfont
 
 \begin{itemize}[leftmargin=*]
-    \item \texttt{adresses( \\
-        \underline{numero\_adresse}, \\
-        numero\_habitation, \\
-        nom\_voie, \\
-        code\_postal, \\
-        pays \\
-    )}
-    \item \texttt{clients( \\
-        \underline{numero\_client}, \\
-        \#numero\_adresse, \\
-        nom\_client, \\
-        prenom\_client, \\
-        mail\_client, \\
-        telephone\_client \\
-    )}
-    \item \texttt{voitures( \\
-        \underline{matricule\_voiture}, \\
-        \#numero\_modele, \\
-        \#numero\_client,    \\
-        puissance\_fiscale\_voiture, \\
-        cylindree\_voiture, \\
-        couleur\_voiture, \\
-        annee\_circulation\_voiture \\
-    )}
-    \item \texttt{modeles\_voitures( \\
-        \underline{numero\_modele}, \\
-        type\_modele, \\
-        marque\_modele, \\
-        version\_modele, \\
-        annee\_modele \\
-    )}
-    \item \texttt{composition( \\
-        \underline{\#numero\_modele, \#numero\_serie\_piece} \\
-    )}
-    \item \texttt{pieces( \\
-        \underline{numero\_serie\_piece}, \\
-        type\_piece, \\
-        prix\_piece, \\
-        marque\_piece \\
-    )}
-    \item \texttt{requerir( \\
-        \underline{\#numero\_action, \#numero\_serie\_piece}, \\
-        quantite \\
-    )}
-    \item \texttt{actions( \\
-        \underline{numero\_action}, \\
-        nom\_action, \\
-        duree\_estime\_action, \\
-        tarif\_action \\
-    )}
-    \item \texttt{contenir( \\
-        \underline{\#numero\_action, \#numero\_intervention} \\
-    )}
-    \item \texttt{survenir( \\
-        \underline{\#numero\_action, \#numero\_intervention} \\
+    \item \texttt{interventions( \\
+        \underline{numero\_intervention}, \\
+        \#matricule\_voiture, \\
+        \#numero\_SIREN, \\
+        date\_debut\_intervention, \\
+        date\_fin\_intervention, \\
+        kilometrage, \\
+        effectuee, \\
     )}
     \item \texttt{factures( \\
         \underline{numero\_facture}, \\
@@ -97,13 +50,68 @@ Ce document présente le modèle relationnel mis en place lors de la réalisatio
         date\_devis, \\
         montant\_devis \\
     )}
-    \item \texttt{interventions( \\
-        \underline{numero\_intervention}, \\
-        \#matricule\_voiture, \\
-        \#numero\_SIREN, \\
-        date\_debut\_intervention, \\
-        date\_fin\_intervention, \\
-        kilometrage \\
+    \item \texttt{actions( \\
+        \underline{numero\_action}, \\
+        nom\_action, \\
+        duree\_estime\_action, \\
+        tarif\_action \\
+    )}
+    \item \texttt{actions\_contenues( \\
+        \underline{\#numero\_action, \#numero\_intervention} \\
+    )}
+    \item \texttt{actions\_survenues( \\
+        \underline{\#numero\_action, \#numero\_intervention} \\
+    )}
+    \item \texttt{types\_pieces( \\
+        \underline{numero\_type\_piece}, \\
+        nom\_type \\
+    )}
+
+    \newpage
+    \item \texttt{pieces( \\
+        \underline{numero\_serie\_piece}, \\
+        \#numero\_type\_piece, \\
+        prix\_piece, \\
+        marque\_piece \\
+    )}
+    
+    \item \texttt{requete( \\
+        \underline{\#numero\_action, \#numero\_type\_piece}, \\
+        quantite \\
+    )}
+    \item \texttt{modeles\_voiture( \\
+        \underline{numero\_modele}, \\
+        type\_modele, \\
+        marque\_modele, \\
+        version\_modele, \\
+        annee\_modele \\
+    )}
+    \item \texttt{composition( \\
+        \underline{\#numero\_serie\_piece, \#numero\_modele} \\
+    )}
+    \item \texttt{voitures( \\
+        \underline{matricule\_voiture}, \\
+        \#numero\_modele, \\
+        \#numero\_client,    \\
+        puissance\_fiscale\_voiture, \\
+        cylindree\_voiture, \\
+        couleur\_voiture, \\
+        annee\_circulation\_voiture \\
+    )}
+    \item \texttt{adresses( \\
+        \underline{numero\_adresse}, \\
+        numero\_habitation, \\
+        nom\_voie, \\
+        code\_postal, \\
+        pays \\
+    )}
+    \item \texttt{personnes( \\
+        \underline{numero\_securite\_sociale}, \\
+        \#numero\_adresse, \\
+        nom\_personne, \\
+        prenom\_personne, \\
+        mail\_personne, \\
+        telephone\_personne \\
     )}
     \item \texttt{garages( \\
         \underline{numero\_SIREN}, \\
@@ -112,14 +120,9 @@ Ce document présente le modèle relationnel mis en place lors de la réalisatio
         forme\_juridique\_garage, \\
         date\_creation\_garage \\
     )}
-    \item \texttt{employes( \\
-        \underline{numero\_securite\_sociale}, \\
-        \#numero\_SIREN, \\
-        \#numero\_adresse, \\
-        nom\_employe, \\
-        prenom\_employe, \\
-        date\_embauche\_employe, \\
-        salaire\_horaire\_employe \\
+    \item \texttt{tarif( \\
+        \underline{\#numero\_action, \#numero\_modele}, \\
+        montant \\
     )}
 \end{itemize}
 
