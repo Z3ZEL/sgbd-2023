@@ -32,6 +32,8 @@
     <!-- Bouton "Accueil" au centre -->
     <a href="index.php" class="central-button">Accueil</a>
 
+    <a href="clients.php" class="central-button">Clients</a>
+
     <!-- Bouton "Recherche" à droite du bouton "Accueil" -->
     <a href="recherche.php" class="central-button">Recherche</a>
 </div>

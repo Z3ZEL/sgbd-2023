@@ -23,7 +23,7 @@
 
     <!-- Image d'accueil -->
     
-    <h1 class="accueil-image-title">Bonjour</h1>
+    <h1 style="margin:3%;">Bonjour</h1>
 
     <!-- select month & years -->
     <form action="index.php" method="post" style="margin-left: 3%;">

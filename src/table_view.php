@@ -63,7 +63,7 @@ else{
                     <td><input type="submit" value="+"></td>
                     <?php foreach ($columnNames as $columnName): ?>
                         <td>
-                            <input type="text" id="<?= $columnName ?>" name="<?= $columnName ?>">
+                            <input style="background-color: var(--background-color); color: var(--primary-color);" type="text" id="<?= $columnName ?>" name="<?= $columnName ?>">
                         </td>
                     <?php endforeach; ?>
                 </tr>
