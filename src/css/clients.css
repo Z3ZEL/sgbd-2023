@@ -1,0 +1,20 @@
+.client-panel{
+    display: flex;
+    padding: 3%;
+    flex-direction: row;
+}
+
+.client-selection {
+    flex:1;
+    padding: 3%;
+    text-align: center;
+    border: 2px;
+    border-style: dotted;
+    border-color: var(--highlight-color);
+    border-radius: 15px;
+}
+
+.client-information {
+    flex:3;
+    padding: 3%;
+}
