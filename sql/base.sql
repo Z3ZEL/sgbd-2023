@@ -4,296 +4,212 @@
 --   Date de creation :  30/10/2023                       
 -- ============================================================
 
-DROP TABLE IF EXISTS adresse CASCADE ;
-DROP TABLE IF EXISTS client CASCADE ;
-DROP TABLE IF EXISTS voiture CASCADE ;
-DROP TABLE IF EXISTS modele_voiture CASCADE ;
-DROP TABLE IF EXISTS composition CASCADE ;
-DROP TABLE IF EXISTS type_piece CASCADE ;
-DROP TABLE IF EXISTS piece CASCADE ;
-DROP TABLE IF EXISTS requerir CASCADE ;
-DROP TABLE IF EXISTS action CASCADE ;
-DROP TABLE IF EXISTS contenir CASCADE ;
-DROP TABLE IF EXISTS survenir CASCADE ;
-DROP TABLE IF EXISTS facture CASCADE ;
-DROP TABLE IF EXISTS devis CASCADE ;
-DROP TABLE IF EXISTS intervention CASCADE ;
-DROP TABLE IF EXISTS garage CASCADE ;
-DROP TABLE IF EXISTS employe CASCADE ;
+--DROP table CASCADE for each table above
+DROP TABLE IF EXISTS interventions CASCADE;
+DROP TABLE IF EXISTS factures CASCADE;
+DROP TABLE IF EXISTS devis CASCADE;
+DROP TABLE IF EXISTS actions CASCADE;
+DROP TABLE IF EXISTS actions_contenues CASCADE;
+DROP TABLE IF EXISTS actions_survenues CASCADE;
+DROP TABLE IF EXISTS types_pieces CASCADE;
+DROP TABLE IF EXISTS pieces CASCADE;
+DROP TABLE IF EXISTS requete CASCADE;
+DROP TABLE IF EXISTS modeles_voiture CASCADE;
+DROP TABLE IF EXISTS composition CASCADE;
+DROP TABLE IF EXISTS voitures CASCADE;
+DROP TABLE IF EXISTS adresses CASCADE;
+DROP TABLE IF EXISTS personnes CASCADE;
+DROP TABLE IF EXISTS garages CASCADE;
+DROP TABLE IF EXISTS tarif CASCADE;
 
+--CREATE TABLES
 
-
--- ============================================================
---   Table : ADRESSE                                          
--- ============================================================
-
-CREATE TABLE adresse
-(
-    numero_adresse                  SERIAL                 NOT NULL,
-    numero_habitation               INTEGER                        ,
-    nom_voie                        VARCHAR(40)                    ,
-    code_postal                     VARCHAR(10)                    ,
-    pays                            VARCHAR(20)                    ,
-    CONSTRAINT pk_adresse PRIMARY KEY (numero_adresse)
+--Table interventions
+CREATE TABLE interventions (
+    numero_intervention INTEGER NOT NULL,
+    matricule_voiture VARCHAR(10) NOT NULL,
+    numero_SIREN INTEGER NOT NULL,
+    date_debut_intervention DATE NOT NULL,
+    date_fin_intervention DATE NOT NULL,
+    kilometrage INTEGER NOT NULL,
+    effectuee BOOLEAN NOT NULL,
+    PRIMARY KEY (numero_intervention)
 );
 
--- ============================================================
---   Table : CLIENT                                          
--- ============================================================
-
-CREATE TABLE client
-(
-    numero_client                   SERIAL                  NOT NULL,
-    nom_client                      VARCHAR(20)                     ,
-    prenom_client                   VARCHAR(20)                     ,
-    mail_client                     VARCHAR(40)                     ,
-    telephone_client                VARCHAR(20)                     ,
-    numero_adresse                  INTEGER                         ,
-    CONSTRAINT pk_client PRIMARY KEY (numero_client)
+--Table factures
+CREATE TABLE factures (
+    numero_facture INTEGER NOT NULL,
+    numero_intervention INTEGER NOT NULL,
+    date_facture DATE NOT NULL,
+    montant_facture INTEGER NOT NULL,
+    PRIMARY KEY (numero_facture)
 );
 
--- ============================================================
---   Table : VOITURE                                          
--- ============================================================
-
-CREATE TABLE voiture
-(
-    matricule_voiture               VARCHAR(10)             NOT NULL,
-    puissance_fiscale_voiture       INTEGER                         ,
-    cylindree_voiture               INTEGER                         ,
-    couleur_voiture                 VARCHAR(20)                     ,
-    annee_circulation_voiture       INTEGER                         ,
-    numero_modele                   INTEGER                         ,
-    numero_client                   INTEGER                         ,
-    CONSTRAINT pk_voiture PRIMARY KEY (matricule_voiture)
+--Table devis
+CREATE TABLE devis (
+    numero_devis INTEGER NOT NULL,
+    numero_intervention INTEGER NOT NULL,
+    date_devis DATE NOT NULL,
+    montant_devis INTEGER NOT NULL,
+    PRIMARY KEY (numero_devis)
 );
 
--- ============================================================
---   Table : MODELE_VOITURE                                  
--- ============================================================
-
-CREATE TABLE modele_voiture
-(
-    numero_modele                   SERIAL                  NOT NULL,
-    type_modele                     VARCHAR(40)                     ,
-    marque_modele                   VARCHAR(20)                     ,
-    version_modele                  VARCHAR(40)                     ,
-    annee_modele                    INTEGER                         ,
-    CONSTRAINT pk_modele_voiture PRIMARY KEY (numero_modele)
+--Table actions
+CREATE TABLE actions (
+    numero_action INTEGER NOT NULL,
+    nom_action VARCHAR(50) NOT NULL,
+    duree_estime_action INTEGER NOT NULL,
+    tarif_action INTEGER NOT NULL,
+    PRIMARY KEY (numero_action)
 );
 
--- ============================================================
---   Table : COMPOSITION                                    
--- ============================================================
-
-CREATE TABLE composition
-(
-    numero_modele                   INTEGER                  NOT NULL,
-    numero_serie_piece              INTEGER                  NOT NULL,
-    CONSTRAINT pk_composition PRIMARY KEY (numero_modele, numero_serie_piece)
+--Table actions_contenues
+CREATE TABLE actions_contenues (
+    numero_action INTEGER NOT NULL,
+    numero_intervention INTEGER NOT NULL,
+    PRIMARY KEY (numero_action, numero_intervention)
 );
 
--- ============================================================
---   Table : piece                                        
--- ============================================================
-
-CREATE TABLE type_piece
-(
-    numero_type_piece               SERIAL                  NOT NULL,
-    nom_type_piece                        VARCHAR(40)                     ,
-    CONSTRAINT pk_type_piece PRIMARY KEY (numero_type_piece)
+--Table actions_survenues
+CREATE TABLE actions_survenues (
+    numero_action INTEGER NOT NULL,
+    numero_intervention INTEGER NOT NULL,
+    PRIMARY KEY (numero_action, numero_intervention)
 );
 
-CREATE TABLE piece
-(
-    numero_serie_piece              SERIAL                   NOT NULL,
-    prix_piece                      FLOAT                            ,
-    marque_piece                    VARCHAR(20)                      ,
-    numero_type_piece               INTEGER                          ,
-    CONSTRAINT pk_piece PRIMARY KEY (numero_serie_piece)
+--Table types_pieces
+CREATE TABLE types_pieces (
+    numero_type_piece INTEGER NOT NULL,
+    nom_type VARCHAR(50) NOT NULL,
+    PRIMARY KEY (numero_type_piece)
 );
 
--- ============================================================
---   Table : REQUERIR                                      
--- ============================================================
-
-CREATE TABLE requerir
-(
-    numero_action                   INTEGER                  NOT NULL,
-    numero_serie_piece              INTEGER                  NOT NULL,
-    quantite                        INTEGER                          ,
-    CONSTRAINT pk_requerir PRIMARY KEY (numero_action, numero_serie_piece)
+--Table pieces
+CREATE TABLE pieces (
+    numero_serie_piece INTEGER NOT NULL,
+    numero_type_piece INTEGER NOT NULL,
+    prix_piece INTEGER NOT NULL,
+    marque_piece VARCHAR(50) NOT NULL,
+    PRIMARY KEY (numero_serie_piece)
 );
 
--- ============================================================
---   Table : ACTION                                       
--- ============================================================
-
-CREATE TABLE action
-(
-    numero_action                   SERIAL                   NOT NULL,
-    nom_action                      TEXT                             ,
-    duree_estime_action             FLOAT                            ,
-    tarif_action                    INTEGER                          ,
-    CONSTRAINT pk_action PRIMARY KEY (numero_action)
+--Table requete
+CREATE TABLE requete (
+    numero_action INTEGER NOT NULL,
+    numero_type_piece INTEGER NOT NULL,
+    quantite INTEGER NOT NULL,
+    PRIMARY KEY (numero_action, numero_type_piece)
 );
 
--- ============================================================
---   Table : CONTENIR                                      
--- ============================================================
-
-CREATE TABLE contenir
-(
-    numero_action                   INTEGER                  NOT NULL,
-    numero_intervention             INTEGER                  NOT NULL,
-    CONSTRAINT pk_contenir PRIMARY KEY (numero_action, numero_intervention)
+--Table modeles_voiture
+CREATE TABLE modeles_voiture (
+    numero_modele INTEGER NOT NULL,
+    type_modele VARCHAR(50) NOT NULL,
+    marque_modele VARCHAR(50) NOT NULL,
+    version_modele VARCHAR(50) NOT NULL,
+    annee_modele INTEGER NOT NULL,
+    PRIMARY KEY (numero_modele)
 );
 
--- ============================================================
---   Table : SURVENIR                                      
--- ============================================================
-
-CREATE TABLE survenir
-(
-    numero_action                   INTEGER                  NOT NULL,
-    numero_intervention             INTEGER                  NOT NULL,
-    CONSTRAINT pk_survenir PRIMARY KEY (numero_action, numero_intervention)
+--Table composition
+CREATE TABLE composition (
+    numero_serie_piece INTEGER NOT NULL,
+    numero_modele INTEGER NOT NULL,
+    PRIMARY KEY (numero_serie_piece, numero_modele)
 );
 
--- ============================================================
---   Table : FACTURE                                       
--- ============================================================
-
-CREATE TABLE facture
-(
-    numero_facture                  SERIAL                   NOT NULL,
-    date_facture                    DATE                             ,
-    montant_facture                 FLOAT                            ,
-    numero_intervention             INTEGER                          ,
-    CONSTRAINT pk_facture PRIMARY KEY (numero_facture)
+--Table voitures
+CREATE TABLE voitures (
+    matricule_voiture VARCHAR(10) NOT NULL,
+    numero_modele INTEGER NOT NULL,
+    numero_client INTEGER NOT NULL,
+    puissance_fiscale_voiture INTEGER NOT NULL,
+    cylindree_voiture INTEGER NOT NULL,
+    couleur_voiture VARCHAR(50) NOT NULL,
+    annee_circulation_voiture INTEGER NOT NULL,
+    PRIMARY KEY (matricule_voiture)
 );
 
--- ============================================================
---   Table : DEVIS                                         
--- ============================================================
-
-CREATE TABLE devis
-(
-    numero_devis                    SERIAL                   NOT NULL,
-    date_devis                      DATE                             ,
-    montant_devis                   FLOAT                            ,
-    numero_intervention             INTEGER                          ,
-    CONSTRAINT pk_devis PRIMARY KEY (numero_devis)
+--Table adresses
+CREATE TABLE adresses (
+    numero_adresse INTEGER NOT NULL,
+    numero_habitation INTEGER NOT NULL,
+    nom_voie VARCHAR(50) NOT NULL,
+    code_postal INTEGER NOT NULL,
+    pays VARCHAR(50) NOT NULL,
+    PRIMARY KEY (numero_adresse)
 );
 
--- ============================================================
---   Table : INTERVENTION                                  
--- ============================================================
-
-CREATE TABLE intervention
-(
-    numero_intervention             SERIAL                   NOT NULL,
-    date_debut_intervention         DATE                             ,
-    date_fin_intervention           DATE                             ,
-    kilometrage                     INTEGER                          ,
-    matricule_voiture               VARCHAR(10)                          ,
-    numero_SIREN                    INTEGER                          ,
-    CONSTRAINT pk_intervention PRIMARY KEY (numero_intervention)
+--Table personnes
+CREATE TABLE personnes (
+    numero_securite_sociale INTEGER NOT NULL,
+    numero_adresse INTEGER NOT NULL,
+    nom_personne VARCHAR(50) NOT NULL,
+    prenom_personne VARCHAR(50) NOT NULL,
+    mail_personne VARCHAR(50) NOT NULL,
+    telephone_personne INTEGER NOT NULL,
+    PRIMARY KEY (numero_securite_sociale)
 );
 
--- ============================================================
---   Table : GARAGE                                        
--- ============================================================
-
-CREATE TABLE garage
-(
-    numero_SIREN                    SERIAL                   NOT NULL,
-    denomination_garage             VARCHAR(40)                      ,
-    forme_juridique_garage          VARCHAR(20)                      ,
-    date_creation_garage            DATE                             ,
-    numero_adresse                  INTEGER                          ,
-    CONSTRAINT pk_garage PRIMARY KEY (numero_SIREN)
+--Table garages
+CREATE TABLE garages (
+    numero_SIREN INTEGER NOT NULL,
+    numero_adresse INTEGER NOT NULL,
+    denomination_garage VARCHAR(50) NOT NULL,
+    forme_juridique_garage VARCHAR(50) NOT NULL,
+    date_creation_garage DATE NOT NULL,
+    PRIMARY KEY (numero_SIREN)
 );
 
--- ============================================================
---   Table : EMPLOYE                                       
--- ============================================================
-
-CREATE TABLE employe
-(
-    numero_securite_sociale         VARCHAR(20)                   NOT NULL,
-    nom_employe                     VARCHAR(20)                      ,
-    prenom_employe                  VARCHAR(20)                      ,
-    date_embauche_employe           DATE                             ,
-    salaire_horaire_employe         FLOAT                          ,
-    numero_SIREN                    INTEGER                          ,
-    numero_adresse                  INTEGER                          ,
-    CONSTRAINT pk_employe PRIMARY KEY (numero_securite_sociale)
+--Table tarif
+CREATE TABLE tarif (
+    numero_action INTEGER NOT NULL,
+    numero_modele INTEGER NOT NULL,
+    montant INTEGER NOT NULL,
+    PRIMARY KEY (numero_action, numero_modele)
 );
 
--- FOREIGN KEYS
--- ============================================================
+--FOREIGN KEYS
 
--- Client
-ALTER TABLE client
-ADD CONSTRAINT fk_client_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
+--Table interventions
+ALTER TABLE interventions ADD CONSTRAINT fk_interventions_voitures FOREIGN KEY (matricule_voiture) REFERENCES voitures(matricule_voiture);
+ALTER TABLE interventions ADD CONSTRAINT fk_interventions_garages FOREIGN KEY (numero_SIREN) REFERENCES garages(numero_SIREN);
 
--- Voiture
-ALTER TABLE voiture
-ADD CONSTRAINT fk_voiture_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele) ON DELETE CASCADE;
-ALTER TABLE voiture
-ADD CONSTRAINT fk_voiture_numero_client FOREIGN KEY (numero_client) REFERENCES client(numero_client) ON DELETE CASCADE;
+--Table factures
+ALTER TABLE factures ADD CONSTRAINT fk_factures_interventions FOREIGN KEY (numero_intervention) REFERENCES interventions(numero_intervention);
 
--- Composition
-ALTER TABLE composition
-ADD CONSTRAINT fk_composition_modele_voiture FOREIGN KEY (numero_modele) REFERENCES modele_voiture(numero_modele) ON DELETE CASCADE;
-ALTER TABLE composition
-ADD CONSTRAINT fk_composition_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece) ON DELETE CASCADE;
+--Table devis
+ALTER TABLE devis ADD CONSTRAINT fk_devis_interventions FOREIGN KEY (numero_intervention) REFERENCES interventions(numero_intervention);
 
--- Requerir
-ALTER TABLE requerir
-ADD CONSTRAINT fk_requerir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
-ALTER TABLE requerir
-ADD CONSTRAINT fk_requerir_piece FOREIGN KEY (numero_serie_piece) REFERENCES piece(numero_serie_piece) ON DELETE CASCADE;
+--Table actions_contenues
+ALTER TABLE actions_contenues ADD CONSTRAINT fk_actions_contenues_interventions FOREIGN KEY (numero_intervention) REFERENCES interventions(numero_intervention);
+ALTER TABLE actions_contenues ADD CONSTRAINT fk_actions_contenues_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
 
--- Contenir
-ALTER TABLE contenir
-ADD CONSTRAINT fk_contenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
-ALTER TABLE contenir
-ADD CONSTRAINT fk_contenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
+--Table actions_survenues
+ALTER TABLE actions_survenues ADD CONSTRAINT fk_actions_survenues_interventions FOREIGN KEY (numero_intervention) REFERENCES interventions(numero_intervention);
+ALTER TABLE actions_survenues ADD CONSTRAINT fk_actions_survenues_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
 
--- Survenir
-ALTER TABLE survenir
-ADD CONSTRAINT fk_survenir_action FOREIGN KEY (numero_action) REFERENCES action(numero_action) ON DELETE CASCADE;
-ALTER TABLE survenir
-ADD CONSTRAINT fk_survenir_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
+--Table pieces
+ALTER TABLE pieces ADD CONSTRAINT fk_pieces_types_pieces FOREIGN KEY (numero_type_piece) REFERENCES types_pieces(numero_type_piece);
 
--- Facture
-ALTER TABLE facture
-ADD CONSTRAINT fk_facture_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
+--Table requete
+ALTER TABLE requete ADD CONSTRAINT fk_requete_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
+ALTER TABLE requete ADD CONSTRAINT fk_requete_types_pieces FOREIGN KEY (numero_type_piece) REFERENCES types_pieces(numero_type_piece);
 
--- Devis
-ALTER TABLE devis
-ADD CONSTRAINT fk_devis_intervention FOREIGN KEY (numero_intervention) REFERENCES intervention(numero_intervention) ON DELETE CASCADE;
+--Table composition
+ALTER TABLE composition ADD CONSTRAINT fk_composition_pieces FOREIGN KEY (numero_serie_piece) REFERENCES pieces(numero_serie_piece);
+ALTER TABLE composition ADD CONSTRAINT fk_composition_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
 
--- Intervention
-ALTER TABLE intervention
-ADD CONSTRAINT fk_intervention_voiture FOREIGN KEY (matricule_voiture) REFERENCES voiture(matricule_voiture) ON DELETE CASCADE;
-ALTER TABLE intervention
-ADD CONSTRAINT fk_intervention_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN) ON DELETE CASCADE;
+--Table voitures
+ALTER TABLE voitures ADD CONSTRAINT fk_voitures_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
+ALTER TABLE voitures ADD CONSTRAINT fk_voitures_personnes FOREIGN KEY (numero_client) REFERENCES personnes(numero_securite_sociale);
 
--- Garage
-ALTER TABLE garage
-ADD CONSTRAINT fk_garage_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
+--Table personnes
+ALTER TABLE personnes ADD CONSTRAINT fk_personnes_adresses FOREIGN KEY (numero_adresse) REFERENCES adresses(numero_adresse);
 
--- Employe
-ALTER TABLE employe
-ADD CONSTRAINT fk_employe_garage FOREIGN KEY (numero_SIREN) REFERENCES garage(numero_SIREN) ON DELETE CASCADE;
-ALTER TABLE employe
-ADD CONSTRAINT fk_employe_adresse FOREIGN KEY (numero_adresse) REFERENCES adresse(numero_adresse) ON DELETE CASCADE;
+--Table garages
+ALTER TABLE garages ADD CONSTRAINT fk_garages_adresses FOREIGN KEY (numero_adresse) REFERENCES adresses(numero_adresse);
 
---Piece
-ALTER TABLE piece
-ADD CONSTRAINT fk_numero_type_piece FOREIGN KEY (numero_type_piece) REFERENCES type_piece(numero_type_piece) ON DELETE CASCADE;
-
--- ============================================================
+--Table tarif
+ALTER TABLE tarif ADD CONSTRAINT fk_tarif_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
+ALTER TABLE tarif ADD CONSTRAINT fk_tarif_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
