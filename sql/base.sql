@@ -80,7 +80,7 @@ CREATE TABLE actions_survenues (
 --Table types_pieces
 CREATE TABLE types_pieces (
     numero_type_piece INTEGER NOT NULL,
-    nom_type VARCHAR(50) NOT NULL,
+    nom_type_piece VARCHAR(50) NOT NULL,
     PRIMARY KEY (numero_type_piece)
 );
 
