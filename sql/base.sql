@@ -13,14 +13,14 @@ DROP TABLE IF EXISTS actions_contenues CASCADE;
 DROP TABLE IF EXISTS actions_survenues CASCADE;
 DROP TABLE IF EXISTS types_pieces CASCADE;
 DROP TABLE IF EXISTS pieces CASCADE;
-DROP TABLE IF EXISTS requete CASCADE;
-DROP TABLE IF EXISTS modeles_voiture CASCADE;
-DROP TABLE IF EXISTS composition CASCADE;
+DROP TABLE IF EXISTS requetes CASCADE;
+DROP TABLE IF EXISTS modeles_voitures CASCADE;
+DROP TABLE IF EXISTS compositions CASCADE;
 DROP TABLE IF EXISTS voitures CASCADE;
 DROP TABLE IF EXISTS adresses CASCADE;
 DROP TABLE IF EXISTS personnes CASCADE;
 DROP TABLE IF EXISTS garages CASCADE;
-DROP TABLE IF EXISTS tarif CASCADE;
+DROP TABLE IF EXISTS tarifs CASCADE;
 
 --CREATE TABLES
 
@@ -41,7 +41,7 @@ CREATE TABLE factures (
     numero_facture INTEGER NOT NULL,
     numero_intervention INTEGER NOT NULL,
     date_facture DATE NOT NULL,
-    montant_facture INTEGER NOT NULL,
+    montant_facture FLOAT,
     PRIMARY KEY (numero_facture)
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE devis (
     numero_devis INTEGER NOT NULL,
     numero_intervention INTEGER NOT NULL,
     date_devis DATE NOT NULL,
-    montant_devis INTEGER NOT NULL,
+    montant_devis FLOAT,
     PRIMARY KEY (numero_devis)
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE devis (
 CREATE TABLE actions (
     numero_action INTEGER NOT NULL,
     nom_action VARCHAR(50) NOT NULL,
-    duree_estime_action INTEGER NOT NULL,
+    duree_estime_action FLOAT,
     tarif_action INTEGER NOT NULL,
     PRIMARY KEY (numero_action)
 );
@@ -88,13 +88,13 @@ CREATE TABLE types_pieces (
 CREATE TABLE pieces (
     numero_serie_piece INTEGER NOT NULL,
     numero_type_piece INTEGER NOT NULL,
-    prix_piece INTEGER NOT NULL,
+    prix_piece FLOAT,
     marque_piece VARCHAR(50) NOT NULL,
     PRIMARY KEY (numero_serie_piece)
 );
 
---Table requete
-CREATE TABLE requete (
+--Table requetes
+CREATE TABLE requetes (
     numero_action INTEGER NOT NULL,
     numero_type_piece INTEGER NOT NULL,
     quantite INTEGER NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE requete (
 );
 
 --Table modeles_voiture
-CREATE TABLE modeles_voiture (
+CREATE TABLE modeles_voitures (
     numero_modele INTEGER NOT NULL,
     type_modele VARCHAR(50) NOT NULL,
     marque_modele VARCHAR(50) NOT NULL,
@@ -111,8 +111,8 @@ CREATE TABLE modeles_voiture (
     PRIMARY KEY (numero_modele)
 );
 
---Table composition
-CREATE TABLE composition (
+--Table compositions
+CREATE TABLE compositions (
     numero_serie_piece INTEGER NOT NULL,
     numero_modele INTEGER NOT NULL,
     PRIMARY KEY (numero_serie_piece, numero_modele)
@@ -162,10 +162,10 @@ CREATE TABLE garages (
 );
 
 --Table tarif
-CREATE TABLE tarif (
+CREATE TABLE tarifs (
     numero_action INTEGER NOT NULL,
     numero_modele INTEGER NOT NULL,
-    montant INTEGER NOT NULL,
+    montant FLOAT,
     PRIMARY KEY (numero_action, numero_modele)
 );
 
@@ -192,16 +192,16 @@ ALTER TABLE actions_survenues ADD CONSTRAINT fk_actions_survenues_actions FOREIG
 --Table pieces
 ALTER TABLE pieces ADD CONSTRAINT fk_pieces_types_pieces FOREIGN KEY (numero_type_piece) REFERENCES types_pieces(numero_type_piece);
 
---Table requete
-ALTER TABLE requete ADD CONSTRAINT fk_requete_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
-ALTER TABLE requete ADD CONSTRAINT fk_requete_types_pieces FOREIGN KEY (numero_type_piece) REFERENCES types_pieces(numero_type_piece);
+--Table requetes
+ALTER TABLE requetes ADD CONSTRAINT fk_requetes_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
+ALTER TABLE requetes ADD CONSTRAINT fk_requetes_types_pieces FOREIGN KEY (numero_type_piece) REFERENCES types_pieces(numero_type_piece);
 
---Table composition
-ALTER TABLE composition ADD CONSTRAINT fk_composition_pieces FOREIGN KEY (numero_serie_piece) REFERENCES pieces(numero_serie_piece);
-ALTER TABLE composition ADD CONSTRAINT fk_composition_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
+--Table compositions
+ALTER TABLE compositions ADD CONSTRAINT fk_compositions_pieces FOREIGN KEY (numero_serie_piece) REFERENCES pieces(numero_serie_piece);
+ALTER TABLE compositions ADD CONSTRAINT fk_compositions_modeles_voitures FOREIGN KEY (numero_modele) REFERENCES modeles_voitures(numero_modele);
 
 --Table voitures
-ALTER TABLE voitures ADD CONSTRAINT fk_voitures_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
+ALTER TABLE voitures ADD CONSTRAINT fk_voitures_modeles_voitures FOREIGN KEY (numero_modele) REFERENCES modeles_voitures(numero_modele);
 ALTER TABLE voitures ADD CONSTRAINT fk_voitures_personnes FOREIGN KEY (numero_client) REFERENCES personnes(numero_securite_sociale);
 
 --Table personnes
@@ -210,6 +210,6 @@ ALTER TABLE personnes ADD CONSTRAINT fk_personnes_adresses FOREIGN KEY (numero_a
 --Table garages
 ALTER TABLE garages ADD CONSTRAINT fk_garages_adresses FOREIGN KEY (numero_adresse) REFERENCES adresses(numero_adresse);
 
---Table tarif
-ALTER TABLE tarif ADD CONSTRAINT fk_tarif_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
-ALTER TABLE tarif ADD CONSTRAINT fk_tarif_modeles_voiture FOREIGN KEY (numero_modele) REFERENCES modeles_voiture(numero_modele);
+--Table tarifs
+ALTER TABLE tarifs ADD CONSTRAINT fk_tarifs_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
+ALTER TABLE tarifs ADD CONSTRAINT fk_tarifs_modeles_voitures FOREIGN KEY (numero_modele) REFERENCES modeles_voitures(numero_modele);

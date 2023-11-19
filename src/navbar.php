@@ -10,22 +10,23 @@
     <div class="dropdown">
         <button class="dropbtn">Parcourir</button>
         <div class="dropdown-content">
-            <a href="table_view.php?table=action">Actions</a>
-            <a href="table_view.php?table=requerir">Pièces requises</a>
-            <a href="table_view.php?table=adresse">Adresses</a>
-            <a href="table_view.php?table=client">Clients</a>
+            <a href="table_view.php?table=actions">Actions</a>
+            <a href="table_view.php?table=requetes">Pièces requises</a>
+            <a href="table_view.php?table=adresses">Adresses</a>
+            <a href="table_view.php?table=clients">Clients</a>
             <a href="table_view.php?table=devis">Devis</a>
-            <a href="table_view.php?table=employe">Employés</a>
-            <a href="table_view.php?table=facture">Factures</a>
-            <a href="table_view.php?table=garage">Garages</a>
-            <a href="table_view.php?table=intervention">Interventions</a>
-            <a href="table_view.php?table=contenir">Action prévues</a>
-            <a href="table_view.php?table=survenir">Actions survenues</a>
-            <a href="table_view.php?table=modele_voiture">Modèles de voitures</a>
-            <a href="table_view.php?table=type_piece">Types de pièce</a> 
-            <a href="table_view.php?table=composition">Compositions</a>           
-            <a href="table_view.php?table=piece">Pièces</a>
-            <a href="table_view.php?table=voiture">Voitures</a>
+            <a href="table_view.php?table=factures">Factures</a>
+            <a href="table_view.php?table=garages">Garages</a>
+            <a href="table_view.php?table=interventions">Interventions</a>
+            <a href="table_view.php?table=actions_contenues">Action prévues</a>
+            <a href="table_view.php?table=actions_survenues">Actions survenues</a>
+            <a href="table_view.php?table=modeles_voitures">Modèles de voitures</a>
+            <a href="table_view.php?table=types_pieces">Types de pièce</a> 
+            <a href="table_view.php?table=compositions">Compositions</a>           
+            <a href="table_view.php?table=pieces">Pièces</a>
+            <a href="table_view.php?table=voitures">Voitures</a>
+            <a href="table_view.php?table=tarifs">Tarifs</a>
+
         </div>
     </div>
 
