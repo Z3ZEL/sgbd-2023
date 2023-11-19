@@ -26,6 +26,7 @@
             <a href="table_view.php?table=pieces">Pièces</a>
             <a href="table_view.php?table=voitures">Voitures</a>
             <a href="table_view.php?table=tarifs">Tarifs</a>
+            <a href="table_view.php?table=requetes">Requetes</a>            
 
         </div>
     </div>
