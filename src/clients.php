@@ -12,7 +12,7 @@
     <?php include 'navbar.php'; ?>
 
     <?php
-        $request = "SELECT numero_client id_client, nom_client nom, prenom_client prenom FROM client";
+        $request = "SELECT p.numero_securite_sociale id_client, p.nom_personne nom, p.prenom_personne prenom FROM personnes p";
         $stmt = $pdo->query($request);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
@@ -26,8 +26,6 @@
                 <?php endforeach; ?>
             </select>
             <input type="submit" value="Valider">
-
-
 
         </form>
     </div>
@@ -63,7 +61,7 @@
             echo "<li>Voitures : <ul>";
                 
                 foreach($voitures as $voiture){
-                    echo "<li>$voiture[matricule_voiture]</li>";
+                    echo "<li><a href = 'voiture.php?matricule=$voiture[matricule_voiture]  '>$voiture[matricule_voiture]</a></li>";
                 }
             echo "</li></ul>";
                 

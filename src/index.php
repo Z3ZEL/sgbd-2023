@@ -62,9 +62,9 @@
                 $year = '2019';
             }
 
-            $sql = "SELECT SUM(montant_facture) FROM facture WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month'";
+            $sql = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month'";
             //previous month
-            $sql2 = "SELECT SUM(montant_facture) FROM facture WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date";
+            $sql2 = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
