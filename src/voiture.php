@@ -17,7 +17,11 @@
         echo "<h1> $matricule </h1>";
         echo "<ul>";
         foreach($data[0] as $key => $value){
+            if($key == "numero_client"){
+                echo "<li>$key : <a href = 'clients.php?client=$value'>$value</a></li>";
+            }else{
             echo "<li>$key : $value</li>";
+            }
         }
         echo "</ul>";
 

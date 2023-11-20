@@ -48,7 +48,7 @@ select:focus {
     outline: none;
 }
 
-input {
+input,button {
     padding: 8px;
     border: 1px solid;/* Border color for the select box */
     border-radius: 4px;
@@ -58,13 +58,20 @@ input {
     transition: background-color 0.1s linear, color 0.1s ease-in, transform 0.1s ease-in;
 }
 
-input:hover {
+input:hover,button:hover {
     background-color: var(--secondary-color);
     border: 1px solid;
     transform: scale(1.05);
     transition: background-color 0.1s ease-in 0.2s, transform 0.1s ease-in 0.2s;
 }
-
+a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+a::after{
+    content: ' ↗️';
+}
 table {
     width: 100%;
     border-collapse: collapse;
