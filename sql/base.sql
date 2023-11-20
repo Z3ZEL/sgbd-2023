@@ -213,3 +213,68 @@ ALTER TABLE garages ADD CONSTRAINT fk_garages_adresses FOREIGN KEY (numero_adres
 --Table tarifs
 ALTER TABLE tarifs ADD CONSTRAINT fk_tarifs_actions FOREIGN KEY (numero_action) REFERENCES actions(numero_action);
 ALTER TABLE tarifs ADD CONSTRAINT fk_tarifs_modeles_voitures FOREIGN KEY (numero_modele) REFERENCES modeles_voitures(numero_modele);
+
+
+
+-- public.client_informations_view source
+
+CREATE OR REPLACE VIEW public.client_informations_view
+AS SELECT p.numero_securite_sociale AS client_id,
+    gci.nom,
+    gci.prenom,
+    gci.mail,
+    gci.telephone,
+    gci.total_facture
+   FROM personnes p,
+    LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, total_facture);
+
+
+
+CREATE OR REPLACE FUNCTION public.get_client_id_from_intervention(intervention_id integer)
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+	declare
+		client_id int4;
+	begin
+		select p.numero_securite_sociale
+		into client_id
+		from personnes p, voitures v, interventions i
+		where 
+			i.numero_intervention  = intervention_id and 
+			i.matricule_voiture = v.matricule_voiture and 
+			v.numero_client = p.numero_securite_sociale 
+		limit 1;
+		return client_id;
+	END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_client_informations(client_id integer)
+ RETURNS TABLE(nom character varying, prenom character varying, mail character varying, telephone integer, total_facture integer)
+ LANGUAGE plpgsql
+AS $function$
+	begin
+		return query 
+		with client_interventions as (
+	select i.numero_intervention from interventions i where get_client_id_from_intervention(i.numero_intervention) = 4
+),
+client_factures as (
+	select * from factures f, client_interventions ci where ci.numero_intervention = f.numero_intervention 
+)
+select c.nom_personne  , c.prenom_personne  , c.mail_personne  , c.telephone_personne, SUM(cf.montant_facture)::int4  from personnes c, client_factures cf where c.numero_securite_sociale  = 4
+group by c.nom_personne, c.prenom_personne , c.mail_personne, c.telephone_personne  ;
+	END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_voiture_by_num_client(num_client integer)
+ RETURNS TABLE(matricule_voiture character varying)
+ LANGUAGE plpgsql
+AS $function$
+	BEGIN
+		return query 
+			select v.matricule_voiture from voitures v where v.numero_client = num_client;
+	END;
+$function$
+;
