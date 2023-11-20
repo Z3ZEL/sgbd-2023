@@ -31,6 +31,7 @@
     left: 0;
     width: 100%;
     z-index: 100;
+    
 }
 
 /* Add more styling as needed for the form, select, and options */
@@ -50,6 +51,8 @@
     left: 0;
     background-color: var(--background-color);
     min-width: 200px;
+    max-height: 200px; /* Définissez la hauteur maximale pour rendre la liste déroulante scrollable */
+    overflow: auto; /* Ajoutez cette propriété pour rendre la liste déroulante scrollable */
     transform: translateY(-20px);
     transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
     box-shadow: 0px 8px 16px 0px var(--highlight-color);
