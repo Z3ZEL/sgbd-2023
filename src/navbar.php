@@ -13,7 +13,7 @@
             <a href="table_view.php?table=actions">Actions</a>
             <a href="table_view.php?table=requetes">Pièces requises</a>
             <a href="table_view.php?table=adresses">Adresses</a>
-            <a href="table_view.php?table=clients">Clients</a>
+            <a href="table_view.php?table=personnes">Clients</a>
             <a href="table_view.php?table=devis">Devis</a>
             <a href="table_view.php?table=factures">Factures</a>
             <a href="table_view.php?table=garages">Garages</a>

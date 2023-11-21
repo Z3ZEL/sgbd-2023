@@ -41,15 +41,11 @@
             </select>
             <label for="year">Année</label>
             <select name="year" id="year">
-                <option value="2019" <?php if ($_POST['year'] == '2019') {
-                                            echo 'selected';
-                                        } ?>>2019</option>
-                <option value="2020" <?php if ($_POST['year'] == '2020') {
-                                            echo 'selected';
-                                        } ?>>2020</option>
-                <option value="2021" <?php if ($_POST['year'] == '2021') {
-                                            echo 'selected';
-                                        } ?>>2021</option>
+                <?php foreach (range(2030, 1990, -1) as $year) : ?>
+                    <option value="<?= $year ?>" <?php if ($_POST['year'] == $year) {
+                                                        echo 'selected';
+                                                    } ?>><?= $year ?></option>
+                <?php endforeach; ?>
             </select>
 
             <input type="submit" value="Valider">
@@ -131,9 +127,9 @@
                     $year = '2019';
                 }
 
-                $sql = "SELECT SUM(duree_estimee_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month' AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
+                $sql = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month' AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
                 //previous month
-                $sql2 = "SELECT SUM(duree_estimee_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
+                $sql2 = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
 
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
@@ -175,6 +171,20 @@
         </div>
 
 
+    </div>
+
+    <div>
+        <form method="POST" action="table_view.php/table=personnes" style="margin-left : 3%;" >
+            <label for="year">Modèles pris en charge au cours de l'année </label>
+                <select name="year_mod" id="year_mod">
+                    <?php
+                        for ($y = 1990; $y <= 2030; $y++) {
+                            echo '<option value="' . $y . '">' . $y . '</option>';
+                        }
+                    ?>
+                </select>
+            <input type="submit" value="Valider">
+        </form>
     </div>
 
 </body>

@@ -59,14 +59,16 @@ else{
                 </tr>
 
                 <!-- Ligne pour l'ajout d'une nouvelle entrée -->
-                <tr>
-                    <td><input type="submit" value="+"></td>
-                    <?php foreach ($columnNames as $columnName): ?>
-                        <td>
-                            <input style="background-color: var(--background-color); color: var(--primary-color);" type="text" id="<?= $columnName ?>" name="<?= $columnName ?>">
-                        </td>
-                    <?php endforeach; ?>
-                </tr>
+                <?php if ( !isset($_GET['submitable']) || $_GET['submitable'] != 'false') : ?>
+                    <tr>
+                        <td><input type="submit" value="+"></td>
+                        <?php foreach ($columnNames as $columnName): ?>
+                            <td>
+                                <input style="background-color: var(--background-color); color: var(--primary-color);" type="text" id="<?= $columnName ?>" name="<?= $columnName ?>">
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endif; ?>
             </form>
 
             <!-- Données du tableau -->
