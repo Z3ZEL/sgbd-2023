@@ -228,7 +228,20 @@ AS SELECT p.numero_securite_sociale AS client_id,
    FROM personnes p,
     LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, total_facture);
 
-
+CREATE OR REPLACE FUNCTION public.get_models_by_year(year integer, SIREN integer)
+ RETURNS TABLE(numero_modele integer, type_modele character varying, marque_modele character varying, version_modele character varying, annee_modele integer)
+ LANGUAGE plpgsql
+AS $function$
+    BEGIN
+        RETURN QUERY
+        SELECT DISTINCT modeles_voitures 
+        FROM modeles_voitures
+        JOIN voitures ON voitures.numero_modele = modeles_voitures.numero_modele
+        JOIN interventions ON interventions.matricule_voiture = voitures.matricule_voiture
+        WHERE interventions.numero_SIREN = SIREN
+        AND interventions.date_debut_intervention BETWEEN (year || '-01-01')::date AND (year || '-12-31')::date;
+    END;
+$function$;
 
 CREATE OR REPLACE FUNCTION public.get_client_id_from_intervention(intervention_id integer)
  RETURNS integer

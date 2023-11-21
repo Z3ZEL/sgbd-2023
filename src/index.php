@@ -9,6 +9,8 @@
 </head>
 
 <body>
+
+
     <?php include 'navbar.php'; ?>
     <?php include 'auth.php'; ?>
 
@@ -174,7 +176,8 @@
     </div>
 
     <div>
-        <form method="POST" action="table_view.php/table=personnes" style="margin-left : 3%;" >
+        <?php $_SESSION['numero_SIREN'] = 345678901; ?>
+        <form method="POST" action="models_year.php" style="margin-left : 3%;" >
             <label for="year">Modèles pris en charge au cours de l'année </label>
                 <select name="year_mod" id="year_mod">
                     <?php
