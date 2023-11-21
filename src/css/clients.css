@@ -1,9 +1,17 @@
-.client-panel{
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.client-panel {
     display: flex;
     padding: 3%;
     flex-direction: row;
 }
-
 .client-selection {
     flex:1;
     padding: 3%;
@@ -17,4 +25,5 @@
 .client-information {
     flex:3;
     padding: 3%;
+    animation: fade-in 1s ease-in;
 }

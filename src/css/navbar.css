@@ -17,7 +17,13 @@
 
 .navbar a:hover, .navbar .dropbtn:hover {
     color: var(--highlight-color);
+
     transform: scale(1.05);
+}
+
+.navbar a::after{
+    content: '';
+    
 }
 .navbar {
     display: flex;

@@ -8,6 +8,11 @@
 
 </head>
 <body>
+    <script> 
+        function openClientInfoList(){
+            window.location.href = "table_view.php?table=client_informations_view";
+        }
+    </script>
     <?php include 'auth.php'; ?>
     <?php include 'navbar.php'; ?>
 
@@ -28,6 +33,8 @@
             <input type="submit" value="Valider">
 
         </form>
+
+        <button onclick="openClientInfoList()" style="margin-top : 2%;" >Liste des clients</button>
     </div>
 
     <div class="client-information">
@@ -37,7 +44,7 @@
         $client_nom = $data[$client_id-1]['nom'] ?? NULL;
         $client_prenom = $data[$client_id-1]['prenom'] ?? NULL;
 
-        $client_data = "SELECT * FROM get_client_informations($client_id)";
+        $client_data = "SELECT * FROM public.get_client_informations($client_id)";
         $stmt = $pdo->query($client_data);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -58,7 +65,7 @@
                 echo "<li>$key : $value</li>";
             }
             
-            echo "<li>Voitures : <ul>";
+            echo "<li>voitures : <ul>";
                 
                 foreach($voitures as $voiture){
                     echo "<li><a href = 'voiture.php?matricule=$voiture[matricule_voiture]  '>$voiture[matricule_voiture]</a></li>";
