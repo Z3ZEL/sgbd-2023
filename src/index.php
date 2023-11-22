@@ -176,7 +176,7 @@
     </div>
 
     <div>
-        <form method="POST" action="table_view.php?table=models_year&fct=true" style="margin-left : 3%;" >
+        <form method="POST" action="table_view.php?table=models_year&fct=true&submitable=false" style="margin-left : 3%;" >
             <input type="hidden" name="numero_SIREN" value="567890123">
             <label for="year">Modèles pris en charge au cours de l'année </label>
                 <select name="year_mod" id="year_mod">
