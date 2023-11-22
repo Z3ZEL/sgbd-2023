@@ -31,28 +31,28 @@
     <h1 style="margin:3%;">Bonjour</h1>
 
     <!-- select month & years -->
-    <form action="index.php" method="post" style="margin-left: 3%;">
-        <div class="date-selection">
-            <label for="month">Mois</label>
-            <select name="month" id="month">
-                <?php foreach (range(1, 12) as $month) :  ?>
-                    <option value="<?= str_pad($month, 2, '0', STR_PAD_LEFT) ?>" <?php if ($_POST['month'] == str_pad($month, 2, '0', STR_PAD_LEFT)) {
-                                                                                        echo 'selected';
-                                                                                    } ?>><?= str_pad($month, 2, '0', STR_PAD_LEFT) ?></option>
-                <?php endforeach; ?>
-            </select>
-            <label for="year">Année</label>
-            <select name="year" id="year">
-                <?php foreach (range(2030, 1990, -1) as $year) : ?>
-                    <option value="<?= $year ?>" <?php if ($_POST['year'] == $year) {
-                                                        echo 'selected';
-                                                    } ?>><?= $year ?></option>
-                <?php endforeach; ?>
-            </select>
+    <form action="" method="post" style="margin-left : 3%">
+        <!-- Sélection du mois -->
+        <select name="month">
+            <?php
+                for ($month = 1; $month <= 12; $month++) {
+                    echo "<option value='$month'>$month</option>";
+                }
+            ?>
+        </select>
 
-            <input type="submit" value="Valider">
-        </div>
+        <!-- Sélection de l'année -->
+        <select name="year">
+            <?php
+            for ($year = 1990; $year <= 2030; $year++) {
+                echo "<option value='$year'>$year</option>";
+            }
+            ?>
+        </select>
+
+    <input type="submit" value="Envoyer">
     </form>
+
 
     <div class="stats">
 
@@ -61,8 +61,8 @@
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
                 //get month and years 
-                $month = $_POST['month'];
-                $year = $_POST['year'];
+                $month = $_POST['month'] ?? NULL;
+                $year = $_POST['year'] ?? NULL;
 
                 if ($month == null) {
                     $month = '01';
@@ -119,8 +119,8 @@
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
                 //get month and years 
-                $month = $_POST['month'];
-                $year = $_POST['year'];
+                $month = $_POST['month'] ?? NULL;
+                $year = $_POST['year'] ?? NULL;
 
                 if ($month == null) {
                     $month = '01';
@@ -176,8 +176,8 @@
     </div>
 
     <div>
-        <?php $_SESSION['numero_SIREN'] = 345678901; ?>
-        <form method="POST" action="models_year.php" style="margin-left : 3%;" >
+        <form method="POST" action="table_view.php?table=models_year&fct=true" style="margin-left : 3%;" >
+            <input type="hidden" name="numero_SIREN" value="567890123">
             <label for="year">Modèles pris en charge au cours de l'année </label>
                 <select name="year_mod" id="year_mod">
                     <?php

@@ -3,6 +3,11 @@
 include 'auth.php';
 
 $tableName = $_GET['table'] ?? 'voiture';
+
+if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
+    include("$tableName.php");
+}
+
 $sql = "SELECT * FROM $tableName";
 $stmt = $pdo->query($sql);
 
@@ -26,6 +31,11 @@ else{
     }
 }
 
+if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
+    //DROP TABLE $tableName;
+    $sql = "DROP TABLE $tableName";
+    $stmt = $pdo->query($sql);
+}
 
 ?>
 <!DOCTYPE html>

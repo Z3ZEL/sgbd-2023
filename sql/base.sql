@@ -234,7 +234,7 @@ CREATE OR REPLACE FUNCTION public.get_models_by_year(year integer, SIREN integer
 AS $function$
     BEGIN
         RETURN QUERY
-        SELECT DISTINCT modeles_voitures 
+        SELECT DISTINCT modeles_voitures.numero_modele, modeles_voitures.type_modele, modeles_voitures.marque_modele, modeles_voitures.version_modele, modeles_voitures.annee_modele 
         FROM modeles_voitures
         JOIN voitures ON voitures.numero_modele = modeles_voitures.numero_modele
         JOIN interventions ON interventions.matricule_voiture = voitures.matricule_voiture
