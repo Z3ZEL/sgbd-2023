@@ -1,8 +1,6 @@
-/* Ajoutez ces styles à la fin de votre fichier CSS */
-
 #choix {
     text-align: center;
-    margin: 20px; /* Ajoute une marge autour du bloc */
+    margin: 20px;
 }
 
 #choix h1 {
