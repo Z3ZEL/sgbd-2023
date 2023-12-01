@@ -94,3 +94,14 @@ th {
 tbody tr:hover {
     background-color: var(--highlight-color);
 }
+
+
+.container{
+    flex:1;
+    padding: 3%;
+    text-align: left;
+    border: 2px;
+    border-style: dotted;
+    border-color: var(--highlight-color);
+    border-radius: 15px;
+}
