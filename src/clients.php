@@ -10,7 +10,7 @@
 <body>
     <script> 
         function openClientInfoList(){
-            window.location.href = "table_view.php?table=client_informations_view";
+            window.location.href = "table_view.php?table=client_informations_view&submitable=false";
         }
     </script>
     <?php include 'auth.php'; ?>

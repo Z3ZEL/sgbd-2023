@@ -2,13 +2,20 @@
 
 include 'auth.php';
 
-$tableName = $_GET['table'] ?? 'voiture';
-
-if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
-    include("$tableName.php");
+if (isset($_GET['fct'])) {
+    $fct = $_GET['fct'];
+        $sql = "SELECT * FROM $fct(";
+        if(isset($_GET['param'])) {
+            $params = $_GET['param'];
+            $sql .= implode(',', $params);
+        }
+        $sql .= ")";
+        $tableName = $fct;
+    } else {
+    $tableName = $_GET['table'] ?? 'voiture';
+    $sql = "SELECT * FROM $tableName";
 }
 
-$sql = "SELECT * FROM $tableName";
 $stmt = $pdo->query($sql);
 
 // Récupérer les données
@@ -16,7 +23,6 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $data = array_reverse($data);
 
 // Récupérer les noms des colonnes
-
 $columnNames=array();
 
 if(!empty($data))
@@ -29,12 +35,6 @@ else{
     for ($i = 1; $meta = $stmt->getColumnMeta($i); $i++) {  // Continuer pour les autres colonnes
         $columnNames[] = $meta['name'];
     }
-}
-
-if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
-    //DROP TABLE $tableName;
-    $sql = "DROP TABLE $tableName";
-    $stmt = $pdo->query($sql);
 }
 
 ?>
@@ -62,7 +62,7 @@ if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
             <table border="1">
                 <!-- En-têtes du tableau -->
                 <tr>
-                    <th></th>
+                    <?php if ( !isset($_GET['submitable']) || $_GET['submitable'] != 'false') : ?><th></th><?php endif; ?>
                     <?php foreach ($columnNames as $columnName): ?>
                         <th><?= $columnName ?></th>
                     <?php endforeach; ?>
@@ -84,13 +84,14 @@ if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
             <!-- Données du tableau -->
             <?php foreach ($data as $row): ?>
                 <tr>
+                <?php if (!isset($_GET['submitable']) || $_GET['submitable'] !== 'false'): ?>
                     <form action="delete_entry.php" method="post">
                         <input type="hidden" name="table" value="<?= $tableName ?>">
                         <input type="hidden" name="pk" value="<?= $row[$columnNames[0]] ?>">
                         <input type="hidden" name="pk_column" value="<?= $columnNames[0] ?>">
                         <td><input type="submit" value="-"></td>
                     </form>
-
+                <?php endif; ?>
                     <?php foreach ($columnNames as $columnName): ?>
                         <td><?= $row[$columnName] ?></td>
                     <?php endforeach; ?>
@@ -101,4 +102,3 @@ if (isset($_GET['fct']) && $_GET['fct'] == 'true') {
         </div>
     </body>
 </html>
-

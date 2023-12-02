@@ -228,21 +228,6 @@ AS SELECT p.numero_securite_sociale AS client_id,
    FROM personnes p,
     LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, total_facture);
 
-CREATE OR REPLACE FUNCTION public.get_models_by_year(year integer, SIREN integer)
- RETURNS TABLE(numero_modele integer, type_modele character varying, marque_modele character varying, version_modele character varying, annee_modele integer)
- LANGUAGE plpgsql
-AS $function$
-    BEGIN
-        RETURN QUERY
-        SELECT DISTINCT modeles_voitures.numero_modele, modeles_voitures.type_modele, modeles_voitures.marque_modele, modeles_voitures.version_modele, modeles_voitures.annee_modele 
-        FROM modeles_voitures
-        JOIN voitures ON voitures.numero_modele = modeles_voitures.numero_modele
-        JOIN interventions ON interventions.matricule_voiture = voitures.matricule_voiture
-        WHERE interventions.numero_SIREN = SIREN
-        AND interventions.date_debut_intervention BETWEEN (year || '-01-01')::date AND (year || '-12-31')::date;
-    END;
-$function$;
-
 CREATE OR REPLACE FUNCTION public.get_client_id_from_intervention(intervention_id integer)
  RETURNS integer
  LANGUAGE plpgsql
@@ -291,3 +276,75 @@ AS $function$
 	END;
 $function$
 ;
+
+-- Requete : Obtenir la liste des modeles de voiture rencontrés sur une année pour un garage donné
+
+CREATE OR REPLACE FUNCTION public.get_models_by_year(year integer, SIREN integer)
+ RETURNS TABLE(numero_modele integer, type_modele character varying, marque_modele character varying, version_modele character varying, annee_modele integer)
+ LANGUAGE plpgsql
+AS $function$
+    BEGIN
+        RETURN QUERY
+        SELECT DISTINCT modeles_voitures.numero_modele, modeles_voitures.type_modele, modeles_voitures.marque_modele, modeles_voitures.version_modele, modeles_voitures.annee_modele 
+        FROM modeles_voitures
+        JOIN voitures ON voitures.numero_modele = modeles_voitures.numero_modele
+        JOIN interventions ON interventions.matricule_voiture = voitures.matricule_voiture
+        WHERE interventions.numero_SIREN = SIREN
+        AND interventions.date_debut_intervention BETWEEN (year || '-01-01')::date AND (year || '-12-31')::date;
+    END;
+$function$;
+
+-- Requete : Obtenir la liste des interventions prévues dans les deux mois pour un garage donné
+
+CREATE OR REPLACE FUNCTION public.get_interventions_by_two_months(SIREN integer)
+ RETURNS TABLE(numero_intervention integer, matricule_voiture character varying, numero_SIREN integer, date_debut_intervention date, date_fin_intervention date, kilometrage integer)
+ LANGUAGE plpgsql
+AS $function$
+    BEGIN
+        RETURN QUERY
+        SELECT interventions.numero_intervention, interventions.matricule_voiture, interventions.numero_SIREN, interventions.date_debut_intervention, interventions.date_fin_intervention, interventions.kilometrage
+        FROM interventions
+        WHERE interventions.numero_SIREN = SIREN
+            AND interventions.date_debut_intervention BETWEEN (CURRENT_DATE)::date AND (CURRENT_DATE + INTERVAL '2 months')::date;
+        END;
+$function$;
+
+-- Requete : Obtenir la liste des types de véhicules avec type d'interventions majoritaire pratiqué sur ces véhicules (requête SQL spécifiée en commentaire ci-dessous)
+
+CREATE OR REPLACE FUNCTION public.get_type_modele_by_majority_action()
+ RETURNS TABLE(type_modele character varying, numero_action integer, nom_action character varying, max_count bigint)
+ LANGUAGE plpgsql
+AS $function$
+    BEGIN
+        RETURN QUERY
+        WITH count_by_type AS 
+        (
+        SELECT modeles_voitures.type_modele, actions.numero_action, actions.nom_action, COUNT(*) AS count
+        FROM actions
+        JOIN (
+            SELECT * FROM actions_contenues 
+            UNION 
+            SELECT * FROM actions_survenues
+            ) AS join_actions
+        ON actions.numero_action = join_actions.numero_action
+        JOIN interventions
+        ON join_actions.numero_intervention=interventions.numero_intervention
+        JOIN voitures
+        ON voitures.matricule_voiture=interventions.matricule_voiture
+        JOIN modeles_voitures
+        ON voitures.numero_modele=modeles_voitures.numero_modele
+        GROUP BY modeles_voitures.type_modele, actions.numero_action
+        ),
+        max_by_type AS
+        (
+        SELECT count_by_type.type_modele, MAX(count) AS max_count
+        FROM count_by_type
+        GROUP BY count_by_type.type_modele
+        )
+        SELECT count_by_type.type_modele, count_by_type.numero_action, count_by_type.nom_action, max_by_type.max_count
+        FROM count_by_type
+        JOIN max_by_type
+        ON count_by_type.type_modele=max_by_type.type_modele AND count_by_type.count=max_by_type.max_count
+        ORDER BY count_by_type.type_modele, count_by_type.numero_action; 
+    END;
+$function$;
