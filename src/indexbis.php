@@ -177,6 +177,7 @@
 
     <?php include 'models_by_years.php'; ?>
     <?php include 'interventions_two_months.php'; ?>
+    <?php include 'type_modele_by_majority_action.php'; ?>
 
 </body>
 

@@ -15,12 +15,3 @@
         </p>
     </form>
 </div>
-
-<!-- <script>
-    function redirectToTableView() {
-        var selectedYear = document.getElementById("year_mod").value;
-        var url = "table_view.php?fct=get_models_by_year&param[]=" + encodeURIComponent(selectedYear) + "&param[]=567890123&submitable=false";
-        window.location.href = url;
-    }
-</script>
- -->
