@@ -1,0 +1,40 @@
+.voiture-panel{
+    display: flex;
+    padding: 3%;
+    flex-direction: row;
+}
+
+.voiture-info{
+    flex:1;
+    padding: 3%;
+    text-align: left;
+    border: 2px;
+    border-style: dotted;
+    border-color: var(--highlight-color);
+    border-radius: 15px;
+}
+
+.voiture-intervention {
+    flex:3;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.voiture-intervention .intervention {
+    display: flex;
+    flex-direction: row;
+    padding: 3%;
+    border: 2px;
+    margin-bottom: 3%;
+
+    border-style: dotted;
+    border-color: var(--highlight-color);
+    border-radius: 15px;
+}
+
+.intervention-content {
+    display: flex;
+    align-content: right;
+    align-self: right;
+}

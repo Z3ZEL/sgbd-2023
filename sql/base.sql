@@ -255,12 +255,12 @@ AS $function$
 	begin
 		return query 
 		with client_interventions as (
-	select i.numero_intervention from interventions i where get_client_id_from_intervention(i.numero_intervention) = 4
+	select i.numero_intervention from interventions i where get_client_id_from_intervention(i.numero_intervention) = client_id
 ),
 client_factures as (
 	select * from factures f, client_interventions ci where ci.numero_intervention = f.numero_intervention 
 )
-select c.nom_personne  , c.prenom_personne  , c.mail_personne  , c.telephone_personne, SUM(cf.montant_facture)::int4  from personnes c, client_factures cf where c.numero_securite_sociale  = 4
+select c.nom_personne  , c.prenom_personne  , c.mail_personne  , c.telephone_personne, SUM(cf.montant_facture)::int4  from personnes c, client_factures cf where c.numero_securite_sociale  = client_id
 group by c.nom_personne, c.prenom_personne , c.mail_personne, c.telephone_personne  ;
 	END;
 $function$
@@ -274,6 +274,22 @@ AS $function$
 		return query 
 			select v.matricule_voiture from voitures v where v.numero_client = num_client;
 	END;
+$function$
+
+
+;
+
+
+CREATE OR REPLACE FUNCTION public.get_actions_from_intervention(integer)
+ RETURNS SETOF actions
+ LANGUAGE sql
+AS $function$
+	with ra as (
+	select ac.numero_action  from actions_contenues ac where ac.numero_intervention = $1
+	union
+	select as2.numero_action from actions_survenues as2 where as2.numero_intervention  = $1
+	)
+	select actions.* from actions, ra where actions.numero_action = ra.numero_action;
 $function$
 ;
 

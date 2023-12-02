@@ -43,8 +43,8 @@
         
         $client_nom = $data[$client_id-1]['nom'] ?? NULL;
         $client_prenom = $data[$client_id-1]['prenom'] ?? NULL;
-
-        $client_data = "SELECT * FROM public.get_client_informations($client_id)";
+    
+        $client_data = "SELECT * FROM get_client_informations($client_id)";
         $stmt = $pdo->query($client_data);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

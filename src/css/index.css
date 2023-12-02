@@ -1,60 +1,16 @@
-/* styles.css */
-
-/* Style général */
-
-.stats{
-    display: flex;
-    flex-direction: column;
-    margin: 3%;
-    height: 40vh;
+#choix {
+    text-align: center;
+    margin: 20px;
 }
 
-.stat {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    
+#choix h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
-.stat-item {
-    margin: 0 10px;
-    align-self: center;
-    flex :1;
+#garage {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
-
-.stat-bar {
-    background-color: var(--highlight-color);
-    height: 50%;
-    border-radius: 15px;
-}
-
-.stat-bar-handle {
-    background-color: var(--secondary-color);
-    height: 100%;
-    border-radius: 15px;
-}
-
-
-.date-selection {
-    display: flex;
-    align-items: center;
-    margin-right: 20px; /* Adjust the margin as needed to create space between the date selection and other elements in the navbar */
-}
-
-
-
-
-.accueil-image-container {
-    display: flex;
-    justify-content: center; /* Centrer l'image horizontalement */
-    align-items: center;     /* Centrer l'image verticalement */
-    height: calc(100vh - 60px); /* Hauteur de l'écran moins la hauteur de la navbar (à ajuster selon votre design) */
-    overflow: hidden; /* Pour éviter tout débordement d'image */
-}
-
-.accueil-image {
-    max-width: 100%; /* Pour s'assurer que l'image ne dépasse pas la largeur de l'écran */
-    height: auto; /* Pour maintenir l'aspect ratio de l'image */
-}
-

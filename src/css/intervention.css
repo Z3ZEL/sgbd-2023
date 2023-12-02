@@ -1,0 +1,23 @@
+.intervention-panel{
+    display : flex;
+    margin: 3%;
+}
+.intervention-content{
+    border-style: none;
+}
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+}
+.action-item{
+    padding: 3%;
+    border-style: none;
+    transition: padding 0.3s ease;
+}
+.action-item:hover {
+    padding: 4%;
+    background-color: var(--highlight-color);
+}

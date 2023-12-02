@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Gestion des garages</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/indexbis.css">
 </head>
 
 <body>
@@ -35,9 +35,9 @@
         <!-- Sélection du mois -->
         <select name="month">
             <?php
-                for ($month = 1; $month <= 12; $month++) {
-                    echo "<option value='$month'>$month</option>";
-                }
+            for ($month = 1; $month <= 12; $month++) {
+                echo "<option value='$month'>$month</option>";
+            }
             ?>
         </select>
 
@@ -50,7 +50,7 @@
             ?>
         </select>
 
-    <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer">
     </form>
 
 
