@@ -6,9 +6,10 @@ AS SELECT p.numero_securite_sociale AS client_id,
     gci.prenom,
     gci.mail,
     gci.telephone,
+    gci.nombre_voiture,
     gci.total_facture
    FROM personnes p,
-    LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, total_facture);
+    LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, nombre_voiture,total_facture);
 
 CREATE OR REPLACE FUNCTION public.get_client_id_from_intervention(intervention_id integer)
  RETURNS integer
@@ -31,20 +32,20 @@ $function$
 ;
 
 CREATE OR REPLACE FUNCTION public.get_client_informations(client_id integer)
- RETURNS TABLE(nom character varying, prenom character varying, mail character varying, telephone integer, total_facture integer)
- LANGUAGE plpgsql
+    RETURNS TABLE(nom character varying, prenom character varying, mail character varying, telephone integer, nombre_voiture int4, total_facture integer)
+    LANGUAGE plpgsql
 AS $function$
-	begin
-		return query 
-		with client_interventions as (
-	select i.numero_intervention from interventions i where get_client_id_from_intervention(i.numero_intervention) = client_id
-),
-client_factures as (
-	select * from factures f, client_interventions ci where ci.numero_intervention = f.numero_intervention 
-)
-select c.nom_personne  , c.prenom_personne  , c.mail_personne  , c.telephone_personne, SUM(cf.montant_facture)::int4  from personnes c, client_factures cf where c.numero_securite_sociale  = client_id
-group by c.nom_personne, c.prenom_personne , c.mail_personne, c.telephone_personne  ;
-	END;
+    begin
+        return query 
+        with client_interventions as (
+            select i.numero_intervention from interventions i where get_client_id_from_intervention(i.numero_intervention) = client_id
+        ),
+        client_factures as (
+            select sum(f.montant_facture) montant  from factures f, client_interventions ci where ci.numero_intervention = f.numero_intervention 
+        )
+        select c.nom_personne  , c.prenom_personne  , c.mail_personne  , c.telephone_personne,count(v.matricule_voiture)::int4 ,cf.montant::int4  from personnes c, client_factures cf, get_voiture_by_num_client(client_id) v where c.numero_securite_sociale  = client_id
+        group by c.nom_personne, c.prenom_personne , c.mail_personne, c.telephone_personne, cf.montant ;
+    END;
 $function$
 ;
 
