@@ -32,7 +32,7 @@
     </div>
 
     <!-- Bouton "Accueil" au centre -->
-    <a href="index.php" class="central-button">Accueil</a>
+    <a href="index.php"?random=<?php echo rand(); ?> class="central-button">Accueil</a>
 
     <a href="clients.php" class="central-button">Clients</a>
 
