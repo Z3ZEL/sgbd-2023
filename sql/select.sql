@@ -57,8 +57,6 @@ AS $function$
 			select v.matricule_voiture from voitures v where v.numero_client = num_client;
 	END;
 $function$
-
-
 ;
 
 
