@@ -9,7 +9,9 @@ unset($fields['table']);
 $columnNames = implode(", ", array_keys($fields));
 $placeholders = implode(", ", array_fill(0, count($fields), '?'));
 
-$sql = "INSERT INTO $tableName ($columnNames) VALUES ($placeholders)";
+//$sql = "SELECT insert_into_table('$tableName', '$columnNames', '$placeholders')";
+
+$sql="INSERT INTO $tableName ($columnNames) VALUES ($placeholders)";
 
 // Exécuter la requête SQL
 $stmt = $pdo->prepare($sql);
