@@ -4,7 +4,7 @@ include 'auth.php';
 $tableName = $_POST['table'];
 
 // Execute sql script '../sql/reset_db.sql'
-$command = "cd .. && psql postgresql://$user:$password@$host:5432/$dbname -1 -f sql/donnees.sql";
+$command = "cd .. && psql postgresql://$user:$password@$host:5432/$dbname -1 -f sql/insert.sql";
 $output = [];
 $status = 0;
 

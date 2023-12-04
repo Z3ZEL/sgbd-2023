@@ -1,6 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+background-color: #333;
+}
+
+body {
+    background-image: url('../images/accueil.jpg'); /* Remplacez 'chemin/vers/votre/image.jpg' par le chemin de votre image de fond */
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: white; /* Couleur du texte pour une meilleure lisibilité sur l'image de fond */
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ajustement de la hauteur minimale à 100% de la hauteur de la vue */
+
+}
+
 #choix {
     text-align: center;
     margin: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Ajout d'une couleur de fond semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #choix h1 {
@@ -13,4 +37,7 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    color: #333; /* Couleur du texte pour une meilleure lisibilité */
+    background-color: #fff; /* Couleur de fond du sélecteur */
+    cursor: pointer;
 }
