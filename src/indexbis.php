@@ -115,7 +115,7 @@
         </div>
 
         <div class="stat">
-            <h2 class="stat-item">Nombre d'heures</h2>
+            <h2 class="stat-item">Nombre d'heures sur le mois</h2>
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
                 //get month and years 
