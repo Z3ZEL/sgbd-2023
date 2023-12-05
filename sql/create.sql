@@ -25,15 +25,14 @@ DROP TABLE IF EXISTS tarifs CASCADE;
 --CREATE TABLES
 
 --Table interventions
-CREATE TABLE interventions (
-    numero_intervention INTEGER NOT NULL,
-    matricule_voiture VARCHAR(10) NOT NULL,
-    numero_SIREN INTEGER NOT NULL,
-    date_debut_intervention DATE NOT NULL,
-    date_fin_intervention DATE NOT NULL,
-    kilometrage INTEGER NOT NULL,
-    effectuee BOOLEAN NOT NULL,
-    PRIMARY KEY (numero_intervention)
+CREATE TABLE public.interventions (
+    numero_intervention SERIAL PRIMARY KEY,
+    matricule_voiture varchar(10) NOT NULL,
+    numero_siren int4 NOT NULL,
+    date_debut_intervention date NOT NULL,
+    date_fin_intervention date,
+    kilometrage int4,
+    effectuee bool NOT NULL DEFAULT false
 );
 
 --Table factures

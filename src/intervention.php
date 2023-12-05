@@ -43,11 +43,11 @@ $intervention = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div style="flex:3;" class="intervention-content container">
             <h1> Liste des actions </h1>
+            <div class="actions">
             <?php
                 $actions = "SELECT nom_action, tarif_action, duree_estime_action FROM get_actions_from_intervention('$intervention_id')";
                 $stmt = $pdo->query($actions);
                 $actions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo "<div class=\"actions\">";
                 foreach($actions as $action){
                     echo "<div class=\"action-item\">";
                     echo "<h3>$action[nom_action]</h3>";
@@ -56,10 +56,30 @@ $intervention = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
                     echo "</div>";
                 }
-                echo "</div>";
-
+                
             ?>
-        </div>
+            <?php if($intervention[0]['effectuee'] == 0){
+            echo '<div class="action-item" >
+            <h3> Ajouter une action </h3>
+            <form action="add_action.php" method="post">
+                <input type="hidden" name="intervention_id" value="'. $intervention_id .' " >
+                <label for="nom_action">Nom de l\'action</label>';
+                
+                    $actions = "SELECT numero_action,nom_action FROM actions";
+                    $stmt = $pdo->query($actions);
+                    $actions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<select name=\"numero_action\" id=\"nom_action\">";
+                    foreach($actions as $action){
+                        echo "<option value=\"$action[numero_action]\">$action[nom_action]</option>";
+                    }
+                echo '</select>
+                
+                <input type="submit" value="Ajouter">
+            </div>
+            </form>
+            </div>';
+            }
+            ?>
     </div>
     
 </body>

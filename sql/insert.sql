@@ -49,3 +49,6 @@ TRUNCATE personnes, adresses, garages, tarifs, voitures, compositions, modeles_v
 -- Import data for the table factures
 \copy factures(numero_facture, numero_intervention, date_facture, montant_facture) FROM './data/factures.csv' DELIMITER ',' CSV HEADER;
 
+-- Insert data for the table interventions
+SELECT setval('interventions_numero_intervention_seq', (SELECT max(numero_intervention) FROM interventions i));
+

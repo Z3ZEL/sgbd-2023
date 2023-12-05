@@ -63,10 +63,32 @@
             echo "<button style='margin:3%; margin-left:4em; width:10em;' onclick='openInterventionPage($row[numero_intervention])'>Voir</button>";
 
             echo "</div>
+
+            
             </div>";    
         }
-        echo "</ul>";
     ?>
+    <div class="intervention"> 
+    <div class="intervention-info" style="flex:8">
+    <h2>Ajouter une intervention</h2>
+    <form action="add_intervention.php" method="post">
+        <label for="date">Date de l'intervention</label>
+        <input type="date" name="date" name="date">
+        <input type="hidden" name="matricule" value="<?php echo $matricule ?>"> 
+        </div>
+        <div class="intervention-content" style="flex:1">
+        
+        <input style="margin:3%; margin-left:4em; width:10em;" type="submit" value="Ajouter">
+        </div>
+    </form>
+
+
+
+
+
+    </div>
+
+    </ul>
     </div>
 
 
