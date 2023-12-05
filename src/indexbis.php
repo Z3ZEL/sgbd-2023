@@ -44,7 +44,7 @@
         <!-- Sélection de l'année -->
         <select name="year">
             <?php
-            for ($year = 1990; $year <= 2030; $year++) {
+            for ($year = 2019; $year <= 2024; $year++) {
                 echo "<option value='$year'>$year</option>";
             }
             ?>

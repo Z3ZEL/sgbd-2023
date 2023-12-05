@@ -4,7 +4,7 @@
         <input type="hidden" name="fct" value="get_models_by_year">
         <select name="param[]" id="year_mod" style="margin-left:1%;">
             <?php
-            for ($y = 2025; $y >= 2000; $y--) {
+            for ($y = 2024; $y >= 2019; $y--) {
                 echo '<option value="' . $y . '">' . $y . '</option>';
             }
             ?>
