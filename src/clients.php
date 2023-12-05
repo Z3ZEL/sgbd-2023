@@ -16,18 +16,22 @@
     <?php include 'navbar.php'; ?>
 
     <?php
-    $request = "SELECT p.numero_securite_sociale id_client, p.nom_personne nom, p.prenom_personne prenom FROM personnes p";
+    $request = "SELECT client_id, nom, prenom 
+                FROM client_informations_view
+                ORDER BY client_id";
+
     $stmt = $pdo->query($request);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
+    
     <div class="client-panel">
         <div class="client-selection">
             <h1>Selectionner un client</h1>
             <form>
                 <select name="client" id="client">
                     <?php foreach ($data as $row): ?>
-                        <option value="<?= $row['id_client'] ?>" data-id="<?= $row['id_client'] ?>">
-                            <?= $row['id_client'] ?> - <?= $row['nom'] ?> <?= $row['prenom'] ?>
+                        <option value="<?= $row['client_id'] ?>" data-id="<?= $row['client_id'] ?>" <?php if ($row['client_id'] == $_GET['client']) echo "selected"; ?>>
+                            <?= $row['client_id'] ?> - <?= $row['nom'] ?> <?= $row['prenom'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -38,32 +42,38 @@
             <button onclick="openClientInfoList()" style="margin-top: 2%;">Liste des clients</button>
         </div>
 
-        <?php $edit = $_GET['edit'] ?? false; ?>
+        <?php 
+            $edit = (bool)$_GET['edit'] ?? false;
+
+            $id_client = (int)$_GET['client'] ?? NULL; 
+
+
+            if ($id_client != NULL) {
+                $client_data = "SELECT * FROM client_informations_view WHERE client_id = $id_client";
+                $stmt = $pdo->query($client_data);
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+
+            $client_nom = $data['nom'] ?? NULL;
+            $client_prenom = $data['prenom'] ?? NULL;
+        ?>
 
         <div class="client-information">
-            <?php
-            $client_id = $_GET['client'] ?? NULL;
-
-            $client_nom = $data[$client_id - 1]['nom'] ?? NULL;
-            $client_prenom = $data[$client_id - 1]['prenom'] ?? NULL;
-
-            $client_data = "SELECT * FROM get_client_informations($client_id)";
-            $stmt = $pdo->query($client_data);
-            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            $client_voitures = "SELECT * FROM get_voiture_by_num_client($client_id)";
-            $stmt = $pdo->query($client_voitures);
-            $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            ?>
 
 
-            <?php if ($client_id != NULL && $edit==false) {
+            <?php if ($id_client != NULL && $edit==false) {
+
+                $client_voitures = "SELECT * FROM get_voiture_by_num_client($id_client)";
+                $stmt = $pdo->query($client_voitures);
+                $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
                 echo "<h1> $client_nom $client_prenom</h1>";
 
                 //create a list of information
 
                 echo "<ul>";
-                foreach ($data[0] as $key => $value) {
+                foreach ($data as $key => $value) {
                     echo "<li>$key : $value</li>";
                 }
 
@@ -78,33 +88,38 @@
 
                 //a submit button which add the edit=true GET parameter to the same current url
                 echo "<form action='clients.php' method='get'>";
-                echo "<input type='hidden' name='client' value='$client_id'>";
+                echo "<input type='hidden' name='client' value='$id_client'>";
                 echo "<input type='hidden' name='edit' value='true'>";
                 echo "<input type='submit' value='Editer'>";
                 echo "</form>";
 
             } 
             
-            elseif ($client_id != NULL && $edit==true) {
+            elseif ($id_client != NULL && $edit==true) {
                 echo "<h1> $client_nom $client_prenom</h1>";
 
                 //create an editable form
-                echo "<form action='edit_client.php' method='post'>";
-                echo "<input type='hidden' name='client' value='$client_id'>";
-
+                echo "<form action='edit_client.php?client=$id_client' method='post'>";
                 /*  number of keys that can be edited 
                     (for instance, the number of factures 
                     shouldn't be edited) */
-                $nSubmitableKeys = 4;
+                $lengthSub = 4;
+                $startSub= 0;
 
                 echo "<ul>";
                 //hidden input to send the nSubmitableKeys value
-                echo "<input type='hidden' name='nSubmitableKeys' value='$nSubmitableKeys'>";
-                foreach ($data[0] as $key => $value) {
-                    if ($nSubmitableKeys > 0) {
-                        echo "<li>$key : <input type='text' name='$key' value='$value'></li>";
-                        $nSubmitableKeys--;
+                foreach ($data as $key => $value) {
+                    if ($lengthSub > 0 && $startSub < 0) {
+                        if (is_numeric($value)) {
+                            echo "<li>$key : <input type='text' name='$key' value='$value'></li>";
+                        } elseif (is_bool($value)) {
+                            echo "<li>$key : <input type='checkbox' name='$key' value='$value'></li>";
+                        } else {
+                            echo "<li>$key : <input type='text' name='$key' value='$value'></li>";
+                        }
+                        $lengthSub--;
                     } else {
+                        $startSub--;
                         echo "<li>$key : $value</li>";
                     }
                 }
