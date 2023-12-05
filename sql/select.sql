@@ -1,15 +1,5 @@
 -- public.client_informations_view source
 
-CREATE OR REPLACE VIEW public.client_informations_view
-AS SELECT p.numero_securite_sociale AS client_id,
-    gci.nom,
-    gci.prenom,
-    gci.mail,
-    gci.telephone,
-    gci.nombre_voiture,
-    gci.total_facture
-   FROM personnes p,
-    LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, nombre_voiture,total_facture);
 
 CREATE OR REPLACE FUNCTION public.get_client_id_from_intervention(intervention_id integer)
  RETURNS integer
@@ -49,6 +39,18 @@ AS $function$
 $function$
 ;
 
+CREATE OR REPLACE VIEW public.client_informations_view
+AS SELECT p.numero_securite_sociale AS client_id,
+    gci.nom,
+    gci.prenom,
+    gci.mail,
+    gci.telephone,
+    gci.nombre_voiture,
+    gci.total_facture
+   FROM personnes p,
+    LATERAL get_client_informations(p.numero_securite_sociale) gci(nom, prenom, mail, telephone, nombre_voiture,total_facture);
+
+
 CREATE OR REPLACE FUNCTION public.get_voiture_by_num_client(num_client integer)
  RETURNS TABLE(matricule_voiture character varying)
  LANGUAGE plpgsql
@@ -58,8 +60,6 @@ AS $function$
 			select v.matricule_voiture from voitures v where v.numero_client = num_client;
 	END;
 $function$
-
-
 ;
 
 
