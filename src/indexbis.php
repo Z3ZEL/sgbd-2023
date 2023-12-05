@@ -31,28 +31,28 @@
     <h1 style="margin:3%;">Bonjour</h1>
 
     <!-- select month & years -->
-    <form action="" method="post" style="margin-left : 3%">
-        <!-- Sélection du mois -->
-        <select name="month">
-            <?php
-            for ($month = 1; $month <= 12; $month++) {
-                echo "<option value='$month'>$month</option>";
-            }
-            ?>
-        </select>
-
+    <form  method="get" style="margin-left : 3%">
         <!-- Sélection de l'année -->
         <select name="year">
             <?php
             for ($year = 2019; $year <= 2024; $year++) {
-                echo "<option value='$year'>$year</option>";
+                echo "<option value='$year'>$year</option> ";
             }
             ?>
         </select>
 
+    <?php
+                    $year = $_GET['year'] ?? 2019;
+    ?>
+
+
+
         <input type="submit" value="Envoyer">
     </form>
 
+    <?php
+        echo "<h2 style=\"margin:3%;\" > Résultats pour l'année $year </h2>"; 
+    ?>
 
     <div class="stats">
 
@@ -61,19 +61,13 @@
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
                 //get month and years 
-                $month = $_POST['month'] ?? NULL;
-                $year = $_POST['year'] ?? NULL;
 
-                if ($month == null) {
-                    $month = '01';
-                }
-                if ($year == null) {
-                    $year = '2019';
-                }
+            
 
-                $sql = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month'";
+
+                $sql = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-01-01'::date AND date_facture < '$year-12-31'::date";
                 //previous month
-                $sql2 = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date";
+                $sql2 = "SELECT SUM(montant_facture) FROM factures WHERE date_facture >= '$year-01-01'::date - interval '1 year' AND date_facture < '$year-12-31'::date - interval '1 year'";
 
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
@@ -119,19 +113,11 @@
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
                 //get month and years 
-                $month = $_POST['month'] ?? NULL;
-                $year = $_POST['year'] ?? NULL;
+                
 
-                if ($month == null) {
-                    $month = '01';
-                }
-                if ($year == null) {
-                    $year = '2019';
-                }
-
-                $sql = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date AND date_facture < '$year-$month-01'::date + interval '1 month' AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
+                $sql = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-01-01'::date AND date_facture < '$year-12-31'::date AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
                 //previous month
-                $sql2 = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-$month-01'::date - interval '1 month' AND date_facture < '$year-$month-01'::date AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
+                $sql2 = "SELECT SUM(duree_estime_action) FROM actions, factures, actions_survenues WHERE date_facture >= '$year-01-01'::date - interval '1 year' AND date_facture < '$year-12-31'::date - interval '1 year' AND actions_survenues.numero_intervention = factures.numero_intervention AND actions_survenues.numero_action = actions.numero_action";
 
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
