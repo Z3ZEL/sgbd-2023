@@ -51,7 +51,7 @@
     </form>
 
     <?php
-        echo "<h2 style=\"margin:3%;\" > Résultats pour l'année $year </h2>"; 
+        echo "<h2 style=\"margin:3%;\" > Résultats pour l'année $year (tous garages)</h2>";
     ?>
 
     <div class="stats">
@@ -160,11 +160,14 @@
 
 
     </div>
-
+    
     <?php include 'models_by_years.php'; ?>
     <?php include 'interventions_two_months.php'; ?>
     <?php include 'type_modele_by_majority_action.php'; ?>
 
+    </body>
+
+    </html>
 </body>
 
 </html>
