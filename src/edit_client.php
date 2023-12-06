@@ -2,8 +2,6 @@
 
 include 'auth.php';
 
-//defines client, nom, prenom, mail, telephone, nSubmitableKeys from POST
-
 $client = (int)$_GET['client'] ?? NULL;
 $nom = $_POST['nom'] ?? NULL;
 $prenom = $_POST['prenom'] ?? NULL;

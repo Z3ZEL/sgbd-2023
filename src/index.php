@@ -20,7 +20,6 @@
             function submitForm() {
                 var selectedValue = document.getElementById("garage").value;
                 console.log(selectedValue); 
-                //sesssion storage
                 sessionStorage.setItem("garage", selectedValue);
                 window.location.href = "indexbis.php";
             }

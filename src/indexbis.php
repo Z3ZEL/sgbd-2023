@@ -60,7 +60,6 @@
             <h2 class="stat-item">Somme totale facturée</h2>
             <div class="stat-item stat-bar" style="flex : 5">
                 <?php
-                //get month and years 
 
             
 
